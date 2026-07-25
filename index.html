@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>LingoPulse — Native Spanish Mastery & Active Recall</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-bolt-lightning"></i>
+      </div>
+      <span>LingoPulse</span>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-btn active" data-view="flashcard-view">
+        <i class="fa-solid fa-clone"></i> Flashcards
+      </button>
+      <button class="nav-btn" data-view="quiz-view">
+        <i class="fa-solid fa-list-check"></i> 4-Choice Quiz
+      </button>
+      <button class="nav-btn" data-view="scenario-view">
+        <i class="fa-solid fa-comments"></i> Scenario Drills
+      </button>
+      <button class="nav-btn" data-view="conjugation-view">
+        <i class="fa-solid fa-table"></i> Conjugation Trainer
+      </button>
+      <button class="nav-btn" data-view="stats-view">
+        <i class="fa-solid fa-chart-line"></i> Progress
+      </button>
+    </div>
+
+    <!-- Daily Streak & Goal Badge in Nav Actions -->
+    <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+      <div id="daily-streak-badge" style="display: flex; align-items: center; gap: 0.35rem; background: rgba(234, 88, 12, 0.15); border: 1px solid rgba(234, 88, 12, 0.4); padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; color: #fb923c;" title="Daily Study Streak">
+        <span>🔥</span> <span id="streak-count-val">1</span> Day Streak
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="audio-toggle-btn" title="Toggle Speech Audio">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button class="icon-btn" id="upload-deck-btn" title="Load Custom Language JSON Deck">
+          <i class="fa-solid fa-file-import"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Application Container -->
+  <main class="main-container">
+
+    <!-- Category & Filter Controls Bar -->
+    <div style="display: flex; gap: 0.85rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 1.8rem; background: var(--bg-card); border: 1px solid var(--border-color); padding: 1rem 1.25rem; border-radius: 16px; min-width: 0;">
+      
+      <!-- Category Dropdown Selector -->
+      <div style="display: flex; align-items: center; gap: 0.6rem; flex: 1 1 280px; min-width: 0; max-width: 480px;">
+        <span style="font-size: 0.8rem; color: var(--accent-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">CATEGORY:</span>
+        <select id="category-filter-select" style="background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border-color); color: #fff; padding: 0.55rem 0.85rem; border-radius: 12px; font-size: 0.88rem; font-weight: 600; cursor: pointer; width: 100%; min-width: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+          <option value="ALL">All Universal Spanish</option>
+          <!-- Category options populate dynamically -->
+        </select>
+      </div>
+
+      <!-- Filters, Audio Speed & Modes -->
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; min-width: 0;">
+        
+        <!-- Audio Speed Control -->
+        <button class="primary-btn" id="audio-speed-btn" style="padding: 0.45rem 0.8rem; font-size: 0.82rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: #fff;" title="Toggle Speech Rate">
+          <i class="fa-solid fa-gauge-high"></i> <span id="speed-val-label">1.0x</span>
+        </button>
+
+        <!-- Blind Audio Mode Toggle -->
+        <label style="display: flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 0.5rem 0.8rem; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--accent-cyan); white-space: nowrap;" title="Hide Spanish text on card front until clicked, playing audio first">
+          <input type="checkbox" id="blind-audio-checkbox" style="cursor: pointer; accent-color: var(--accent-cyan);">
+          <span>🎧 Blind Listening</span>
+        </label>
+
+        <!-- Level Dropdown -->
+        <div style="display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">LEVEL:</span>
+          <select id="difficulty-filter-select" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: #fff; padding: 0.5rem 0.8rem; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; max-width: 170px;">
+            <option value="ALL">All Levels</option>
+            <option value="A1 Beginner">🟢 A1 Beginner</option>
+            <option value="A2 Elementary">🟡 A2 Elementary</option>
+            <option value="B1 Intermediate">🔴 B1 Intermediate</option>
+          </select>
+        </div>
+
+        <!-- Accent Dropdown -->
+        <div style="display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">ACCENT:</span>
+          <select id="accent-filter-select" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); color: #fff; padding: 0.5rem 0.8rem; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; max-width: 210px;">
+            <option value="es-MX">🇲🇽 Latin America (Neutral)</option>
+            <option value="es-ES">🇪🇸 Spain (Castellano)</option>
+          </select>
+        </div>
+
+        <!-- Regionalism Toggle -->
+        <label style="display: flex; align-items: center; gap: 0.5rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 0.5rem 0.85rem; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--text-primary); white-space: nowrap;">
+          <input type="checkbox" id="regional-toggle-checkbox" style="cursor: pointer; accent-color: var(--accent-primary);">
+          <span>Include Regionalisms</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- VIEW 1: FLASHCARDS -->
+    <section class="view active" id="flashcard-view">
+      <div class="study-header">
+        <div class="study-stats">
+          <div class="stat-badge">
+            <span class="stat-label">Daily Goal</span>
+            <span class="stat-value" id="fc-daily-goal-count">0 / 20</span>
+          </div>
+          <div class="stat-badge">
+            <span class="stat-label">Due Today</span>
+            <span class="stat-value" id="fc-due-count">0</span>
+          </div>
+          <div class="stat-badge">
+            <span class="stat-label">Studied</span>
+            <span class="stat-value" id="fc-session-count">0</span>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="fc-progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- 3D Flip Card -->
+      <div class="flashcard-wrapper" id="flashcard-container">
+        <div class="flashcard" id="flashcard">
+          <!-- Card Front -->
+          <div class="card-face card-front">
+            <div class="card-header-tags">
+              <span class="badge badge-cat" id="fc-category-tag">Category</span>
+              <span class="badge badge-diff" id="fc-diff-tag">A1 Beginner</span>
+              <span class="badge badge-type" id="fc-type-tag">Universal</span>
+            </div>
+            <div class="card-body">
+              <h2 class="word-target" id="fc-front-text">Cargando...</h2>
+              <button class="audio-btn" id="fc-audio-btn" title="Pronounce Word">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <div class="card-footer-hint" id="fc-front-hint">
+              <i class="fa-solid fa-hand-pointer"></i> Click card or press <kbd>Space</kbd> to flip
+            </div>
+          </div>
+
+          <!-- Card Back -->
+          <div class="card-face card-back">
+            <div class="card-header-tags">
+              <span class="badge badge-cat" id="fc-back-category-tag">Translation</span>
+              <span class="badge badge-diff" id="fc-back-diff-tag">A1 Beginner</span>
+              <span class="badge badge-type" id="fc-back-type-tag">English</span>
+            </div>
+            <div class="card-body">
+              <h2 class="word-translation" id="fc-back-text">Translation</h2>
+              <p style="font-size: 0.95rem; color: var(--text-secondary);" id="fc-back-spanish-ref">Spanish Ref</p>
+            </div>
+            <div class="card-footer-hint">
+              Rate your recall quality below (1-4)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SRS Rating Bar (Shown when flipped) -->
+      <div class="srs-bar" id="srs-rating-bar">
+        <button class="srs-btn srs-again" data-grade="0">
+          <span class="srs-btn-title"><i class="fa-solid fa-rotate-left"></i> Again</span>
+          <span class="srs-btn-time">&lt; 1m (Key 1)</span>
+        </button>
+        <button class="srs-btn srs-hard" data-grade="3">
+          <span class="srs-btn-title"><i class="fa-solid fa-brain"></i> Hard</span>
+          <span class="srs-btn-time">12h (Key 2)</span>
+        </button>
+        <button class="srs-btn srs-good" data-grade="4">
+          <span class="srs-btn-title"><i class="fa-solid fa-thumbs-up"></i> Good</span>
+          <span class="srs-btn-time">1d (Key 3)</span>
+        </button>
+        <button class="srs-btn srs-easy" data-grade="5">
+          <span class="srs-btn-title"><i class="fa-solid fa-star"></i> Easy</span>
+          <span class="srs-btn-time">3d (Key 4)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- VIEW 2: 4-CHOICE MULTIPLE CHOICE QUIZ -->
+    <section class="view" id="quiz-view">
+      <div class="study-header">
+        <div class="study-stats">
+          <div class="stat-badge">
+            <span class="stat-label">Quiz Score</span>
+            <span class="stat-value" id="quiz-score-val">0 / 0</span>
+          </div>
+          <div class="stat-badge">
+            <span class="stat-label">Accuracy</span>
+            <span class="stat-value" id="quiz-accuracy-val">100%</span>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="quiz-progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="quiz-container">
+        <!-- Target Question Prompt -->
+        <div class="quiz-prompt-card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-cat" id="quiz-category-tag">Category</span>
+            <span class="badge badge-diff" id="quiz-diff-tag">A1 Beginner</span>
+          </div>
+          <h2 class="word-target" id="quiz-target-word">Target Word</h2>
+          <button class="audio-btn" id="quiz-audio-btn" title="Pronounce Target Word">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+          <p style="font-size:0.85rem; color: var(--text-muted);">Choose the correct translation:</p>
+        </div>
+
+        <!-- 4 Multiple Choice Options (A, B, C, D) -->
+        <div class="quiz-options-grid" id="quiz-options-container">
+          <!-- 4 option cards will render dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: INTERACTIVE SCENARIO SIMULATOR -->
+    <section class="view" id="scenario-view">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-family: var(--font-heading);">Interactive Conversation Scenarios</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);" id="scenario-desc">Level 1 Conversational Spanish Scenario Drills</p>
+        </div>
+
+        <!-- Scenario Unit Selector -->
+        <select id="scenario-unit-select" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.6rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer;">
+          <!-- Unit options will populate dynamically -->
+        </select>
+      </div>
+
+      <div class="scenario-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 750px; margin: 0 auto; width: 100%;">
+        
+        <!-- Step Progress, Prev/Next Controls & Speaker Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button class="icon-btn" id="scenario-prev-btn" title="Previous Step" style="width: 34px; height: 34px;"><i class="fa-solid fa-chevron-left"></i></button>
+            <span class="badge badge-cat" id="scenario-step-badge">Step 1 of 3</span>
+            <button class="icon-btn" id="scenario-next-btn" title="Next Step" style="width: 34px; height: 34px;"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+
+          <button class="primary-btn" id="scenario-audio-btn" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">
+            <i class="fa-solid fa-play"></i> Replay Speaker Audio
+          </button>
+        </div>
+
+        <!-- NPC Speaker Prompt -->
+        <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700;" id="scenario-npc-speaker">NPC Speaker</span>
+          <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary);" id="scenario-npc-line">"Disculpe, ¿entiende usted inglés?"</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);" id="scenario-npc-translation">"Excuse me, do you understand English?"</p>
+        </div>
+
+        <!-- User Prompt Task -->
+        <div style="border-left: 4px solid var(--accent-primary); padding-left: 1rem;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">YOUR GOAL:</span>
+          <p style="font-size: 1.1rem; font-weight: 600; color: #f8fafc;" id="scenario-user-task">Respond: 'No, miss, I don't understand English.'</p>
+        </div>
+
+        <!-- STEP 1: ACTIVE RECALL TYPING & VOICE INPUT -->
+        <div id="scenario-typing-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+            <input type="text" id="scenario-type-input" placeholder="Type or speak response in Spanish..." style="flex: 1 1 200px; padding: 0.85rem 1.2rem; border-radius: 12px; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border-color); color: #fff; font-size: 1rem; min-width: 0;">
+            
+            <!-- Voice Input Button -->
+            <button class="primary-btn" id="scenario-mic-btn" style="background: rgba(234, 88, 12, 0.2); border: 1px solid rgba(234, 88, 12, 0.5); color: #fb923c; padding: 0.85rem 1.1rem;" title="Speak answer using Microphone">
+              <i class="fa-solid fa-microphone"></i> <span id="mic-label-text">Speak</span>
+            </button>
+
+            <button class="primary-btn" id="scenario-submit-btn" style="padding: 0.85rem 1.3rem;">Check</button>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <button id="scenario-stuck-btn" style="background: transparent; border: none; color: var(--accent-secondary); font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+              <i class="fa-solid fa-lightbulb"></i> I'm stuck (Show 4 Choices)
+            </button>
+            <span id="scenario-typing-feedback" style="font-size: 0.85rem; font-weight: 600;"></span>
+          </div>
+        </div>
+
+        <!-- STEP 2: 4-CHOICE FALLBACK CARDS (Shown when stuck or incorrect) -->
+        <div id="scenario-options-container" class="quiz-options-grid" style="display: none; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <!-- Options populate dynamically -->
+        </div>
+
+        <!-- Feedback Logic Explanation Card -->
+        <div id="scenario-explanation-card" style="display: none; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); padding: 1.2rem; border-radius: 14px; font-size: 0.9rem; color: #a5b4fc;">
+          <!-- Logic breakdown renders here -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 4: CONJUGATION TRAINER -->
+    <section class="view" id="conjugation-view">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-family: var(--font-heading);">Spanish Verb Conjugation Trainer</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Master essential fluency tenses (Presente, Pretérito, Imperfecto & Subjuntivo).</p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <!-- Verb Selector -->
+          <select id="conj-verb-select" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.6rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer;">
+            <!-- Verbs populate dynamically -->
+          </select>
+
+          <!-- Tense Selector -->
+          <select id="conj-tense-select" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.6rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer;">
+            <option value="presente">Presente (Present)</option>
+            <option value="pretérito">Pretérito (Completed Past)</option>
+            <option value="imperfecto">Imperfecto (Habitual Past)</option>
+            <option value="subjuntivo">Subjuntivo (Present Subjunctive)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Conjugation Table & 4-Choice Drill Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="mobile-grid-stack">
+        
+        <!-- Conjugation Table Card -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h2 style="font-family: var(--font-heading); color: var(--accent-primary);" id="conj-infinitive-title">Hablar</h2>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);" id="conj-english-def">to speak / to talk</p>
+            </div>
+            <span class="badge badge-cat" id="conj-type-badge">-ar regular</span>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+
+          <h3 style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">Full Conjugation Table</h3>
+          <div id="conj-table-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <!-- Matrix rows render dynamically -->
+          </div>
+        </div>
+
+        <!-- 4-Choice Conjugation Drill Card -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.8rem; display: flex; flex-direction: column; gap: 1.2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="badge badge-diff" style="background: rgba(99, 102, 241, 0.2); color: var(--accent-primary);">Conjugation Drill</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="conj-drill-score">Score: 0 / 0</span>
+          </div>
+
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center;">
+            <span style="font-size: 0.8rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700;">CONJUGATE THIS FORM:</span>
+            <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: #fff; margin-top: 0.5rem;" id="conj-drill-prompt">Hablar (Nosotros)</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="conj-drill-tense">Tense: Presente</p>
+          </div>
+
+          <div class="quiz-options-grid" id="conj-drill-options-container" style="grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <!-- 4 Options render dynamically -->
+          </div>
+
+          <div id="conj-drill-feedback" style="display: none; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); padding: 1rem; border-radius: 12px; font-size: 0.88rem; color: #34d399;">
+            <!-- Explanation renders here -->
+          </div>
+
+          <button class="primary-btn" id="conj-next-drill-btn" style="display: none; width: 100%; justify-content: center;">
+            <i class="fa-solid fa-arrow-right"></i> Next Conjugation Drill
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 5: PROGRESS & STATS DASHBOARD -->
+    <section class="view" id="stats-view">
+      <h2 style="font-family: var(--font-heading);">Spaced Repetition Analytics</h2>
+
+      <div class="stats-grid">
+        <div class="stats-card">
+          <span class="stat-label">Universal Vocabulary</span>
+          <span class="stats-num" id="stat-total-words">0</span>
+        </div>
+        <div class="stats-card">
+          <span class="stat-label">Regionalisms Separated</span>
+          <span class="stats-num" id="stat-regional-words" style="color: #c084fc;">99</span>
+        </div>
+        <div class="stats-card">
+          <span class="stat-label">Words Learned</span>
+          <span class="stats-num" id="stat-learned-words" style="color: var(--accent-primary);">0</span>
+        </div>
+        <div class="stats-card">
+          <span class="stat-label">Mastered (80%+ SRS)</span>
+          <span class="stats-num" id="stat-mastered-words" style="color: var(--srs-easy);">0</span>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+        <div>
+          <h3 style="font-family: var(--font-heading); margin-bottom: 0.5rem;">Backup & Restore SRS Progress</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Export your SRS review intervals and learned words to a backup JSON file.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="primary-btn" id="export-srs-btn">
+            <i class="fa-solid fa-download"></i> Export Progress
+          </button>
+          <button class="primary-btn" id="import-srs-btn" style="background: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <i class="fa-solid fa-upload"></i> Import Backup
+          </button>
+          <input type="file" id="import-srs-file" accept=".json" style="display: none;">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for Uploading Custom Language JSON Decks -->
+  <div class="modal-overlay" id="deck-modal">
+    <div class="modal">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-family: var(--font-heading);">Load Custom Language Deck</h3>
+        <button class="icon-btn" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">
+        Upload any JSON vocabulary file adhering to the modular schema (e.g., French, German, Japanese).
+      </p>
+      <input type="file" id="custom-deck-file-input" accept=".json" style="padding: 1rem; border: 1px dashed var(--accent-primary); border-radius: 12px; background: rgba(99, 102, 241, 0.05); color: #fff; cursor: pointer;">
+      <button class="primary-btn" id="load-default-deck-btn">
+        <i class="fa-solid fa-rotate"></i> Reset to Default Universal Spanish Deck
+      </button>
+    </div>
+  </div>
+
+  <script src="deck_data.js"></script>
+  <script src="scenarios_data.js"></script>
+  <script src="conjugation_data.js"></script>
+  <script src="srs.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
