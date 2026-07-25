@@ -9,7 +9,7 @@ window.CONVERSATIONAL_SCENARIOS = [
         "npcSpeaker": "Scenario Setting",
         "npcLine": "[You see a woman walking down the street in San Juan and want to get her attention politely]",
         "npcTranslation": "Goal: Excuse yourself politely to get her attention.",
-        "userTask": "Say: 'Excuse me, miss.'",
+        "userTask": "Say politely: 'Excuse me, miss.'",
         "expectedResponse": "Perdón, señorita",
         "acceptableVariations": [
           "Perdon senorita",
@@ -29,12 +29,12 @@ window.CONVERSATIONAL_SCENARIOS = [
           {
             "text": "Buenos días, la dama",
             "isCorrect": false,
-            "reason": "'La dama' translates to 'the lady' which is not used as a polite direct form of address."
+            "reason": "'La dama' translates to 'the lady' which is not used as a direct greeting."
           },
           {
             "text": "Oye, chica",
             "isCorrect": false,
-            "reason": "'Oye, chica' ('Hey, girl') is overly casual and informal for a first interaction."
+            "reason": "'Oye, chica' ('Hey, girl') is overly casual for a first interaction."
           }
         ]
       },
@@ -105,74 +105,6 @@ window.CONVERSATIONAL_SCENARIOS = [
             "text": "Mi español es muy corto",
             "isCorrect": false,
             "reason": "'Corto' means short in length. Say 'entiendo un poco'."
-          }
-        ]
-      },
-      {
-        "step": 4,
-        "npcSpeaker": "Native Speaker (Woman)",
-        "npcLine": "Ah, entiendo. ¿Es usted norteamericano?",
-        "npcTranslation": "Ah, I understand. Are you North American?",
-        "userTask": "Answer: 'Yes, I am American.'",
-        "expectedResponse": "Sí, soy norteamericano",
-        "acceptableVariations": [
-          "Si, soy norteamericano",
-          "Sí, soy estadounidense",
-          "Si, soy estadounidense"
-        ],
-        "options": [
-          {
-            "text": "Sí, soy norteamericano",
-            "isCorrect": true
-          },
-          {
-            "text": "Sí, yo estoy americano",
-            "isCorrect": false,
-            "reason": "'Estar' is temporary state. Nationality always takes 'ser' ('soy')."
-          },
-          {
-            "text": "Sí, me llamo americano",
-            "isCorrect": false,
-            "reason": "'Me llamo' means 'my name is'. Use 'soy' for nationality."
-          },
-          {
-            "text": "Sí, vivo en americano",
-            "isCorrect": false,
-            "reason": "'Americano' is an adjective, not a country noun."
-          }
-        ]
-      },
-      {
-        "step": 5,
-        "npcSpeaker": "Native Speaker (Woman)",
-        "npcLine": "¡Qué bien! Su español es bastante claro.",
-        "npcTranslation": "How nice! Your Spanish is quite clear.",
-        "userTask": "Modestly reply: 'No, not very well, but I try.'",
-        "expectedResponse": "No, no muy bien, pero intento",
-        "acceptableVariations": [
-          "No, no muy bien",
-          "No muy bien",
-          "No, no habla bien"
-        ],
-        "options": [
-          {
-            "text": "No, no muy bien, pero intento",
-            "isCorrect": true
-          },
-          {
-            "text": "No, soy muy malo",
-            "isCorrect": false,
-            "reason": "Self-deprecating phrasing sound unnatural. Use 'no muy bien'."
-          },
-          {
-            "text": "Mi hablar es basura",
-            "isCorrect": false,
-            "reason": "Literal translation trap. Keep it polite with 'no muy bien'."
-          },
-          {
-            "text": "No entiendo nada",
-            "isCorrect": false,
-            "reason": "'I don't understand anything' contradicts that you just spoke to her!"
           }
         ]
       }
@@ -396,106 +328,107 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_04",
     "title": "Level 1 Spanish — Unit 04: Shopping at a Local Market",
-    "description": "Ask prices for fresh fruit and pay with cash in Bogota.",
+    "description": "Buy fresh apples and oranges at a market stand in Bogota and ask for the price.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask prices for fresh fruit and pay with cash in Bogota.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 04: Shopping at a Local Market.",
-        "userTask": "Ask politely: 'Hello, good morning, I would like some information.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[You approach a fruit vendor at the Paloquemao market in Bogota]",
+        "npcTranslation": "Goal: Greet the vendor politely.",
+        "userTask": "Say: 'Good morning! How much are the apples?'",
+        "expectedResponse": "¡Buenos días! ¿Cuánto cuestan las manzanas?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Buenos dias cuanto cuestan las manzanas",
+          "¿Cuánto cuestan las manzanas?",
+          "Buenos días, ¿cuánto son las manzanas?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¡Buenos días! ¿Cuánto cuestan las manzanas?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Cuánto es las manzanas dinero?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Grammatically incorrect. Use '¿cuánto cuestan...?'"
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Dame el precio de manzana",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Commanding phrasing. Ask politely with '¿cuánto cuestan...?'"
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "¿Qué cuesta la fruta roja?",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Imprecise. Name the specific fruit: 'las manzanas'."
           }
         ]
       },
       {
         "step": 2,
-        "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
-        "userTask": "Ask politely: 'Can you help me, please?'",
-        "expectedResponse": "¿Me puede ayudar, por favor?",
+        "npcSpeaker": "Native Speaker (Vendor)",
+        "npcLine": "Las manzanas cuestan dos mil pesos el kilo. ¿Desea también naranjas?",
+        "npcTranslation": "Apples cost two thousand pesos a kilo. Would you also like oranges?",
+        "userTask": "Respond: 'Yes, I would like one kilo of oranges too.'",
+        "expectedResponse": "Sí, quisiera un kilo de naranjas también",
         "acceptableVariations": [
-          "Me puede ayudar por favor",
-          "¿Puede ayudarme?"
+          "Si quisiera un kilo de naranjas tambien",
+          "Sí, un kilo de naranjas, por favor",
+          "Quiero un kilo de naranjas"
         ],
         "options": [
           {
-            "text": "¿Me puede ayudar, por favor?",
+            "text": "Sí, quisiera un kilo de naranjas también",
             "isCorrect": true
           },
           {
-            "text": "¿Tú trabajas aquí o qué?",
+            "text": "Sí, dame un kilo de anaranjado",
             "isCorrect": false,
-            "reason": "Rude phrasing. Ask politely with '¿me puede ayudar?'"
+            "reason": "'Anaranjado' is the color orange. The fruit is 'la naranja'."
           },
           {
-            "text": "Quiero ayuda inmediatamente",
+            "text": "Sí, yo tomo la fruta naranja",
             "isCorrect": false,
-            "reason": "Impatient phrasing. Use 'por favor'."
+            "reason": "Unnatural. Use 'quisiera' or 'quiero' when ordering."
           },
           {
-            "text": "Ayúdame hombre",
+            "text": "Sí, quiero comer naranjas",
             "isCorrect": false,
-            "reason": "Too informal for a customer service scenario."
+            "reason": "Saying 'I want to eat' sounds awkward when purchasing groceries."
           }
         ]
       },
       {
         "step": 3,
-        "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
-        "npcTranslation": "Of course. Here is everything you need.",
-        "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
-        "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
+        "npcSpeaker": "Native Speaker (Vendor)",
+        "npcLine": "Aquí tiene todo. Son cinco mil pesos en total.",
+        "npcTranslation": "Here you go. That's five thousand pesos in total.",
+        "userTask": "Pay the vendor: 'Here you go. Thank you very much!'",
+        "expectedResponse": "Aquí tiene. ¡Muchas gracias!",
         "acceptableVariations": [
-          "Muchas gracias por su ayuda",
-          "Muchas gracias, hasta luego",
-          "Gracias, adios"
+          "Aqui tiene muchas gracias",
+          "Aquí está. Muchas gracias",
+          "Gracias, tenga"
         ],
         "options": [
           {
-            "text": "Muchas gracias por su ayuda. ¡Hasta luego!",
+            "text": "Aquí tiene. ¡Muchas gracias!",
             "isCorrect": true
           },
           {
-            "text": "Chao pescao",
+            "text": "Toma tu dinero",
             "isCorrect": false,
-            "reason": "Slangy rhyme; stick to 'hasta luego' or 'muchas gracias'."
+            "reason": "'Toma tu dinero' ('take your money') sounds blunt."
           },
           {
-            "text": "Yo me voy ahora",
+            "text": "Es todo para ti",
             "isCorrect": false,
-            "reason": "Abrupt phrasing. Use 'hasta luego' or 'adiós'."
+            "reason": "Literal translation of 'it's all yours'. Say 'aquí tiene'."
           },
           {
-            "text": "Está bien, bye",
+            "text": "De nada, amigo",
             "isCorrect": false,
-            "reason": "Use native Spanish farewells like 'hasta luego'."
+            "reason": "'De nada' means 'you're welcome'. Say 'muchas gracias'."
           }
         ]
       }
@@ -504,106 +437,107 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_05",
     "title": "Level 1 Spanish — Unit 05: Taking a Taxi in Buenos Aires",
-    "description": "Tell the driver your destination and ask how much it costs.",
+    "description": "Tell a taxi driver your destination and ask for the fare.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Tell the driver your destination and ask how much it costs.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 05: Taking a Taxi in Buenos Aires.",
-        "userTask": "Ask the driver: 'Hello, how much does it cost to go to the airport?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[You get into a taxi outside your hotel in Buenos Aires]",
+        "npcTranslation": "Goal: Tell the driver where you want to go.",
+        "userTask": "Say: 'Hello! To the airport, please.'",
+        "expectedResponse": "¡Hola! Al aeropuerto, por favor",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hola al aeropuerto por favor",
+          "Al aeropuerto, por favor",
+          "Quiero ir al aeropuerto"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¡Hola! Al aeropuerto, por favor",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Conduce al plano lugar",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation trap. Airport is 'el aeropuerto'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Llevame al avión",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "'Avión' is the airplane itself! Say 'al aeropuerto'."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Voy para volar hoy",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Unnatural. State destination simply: 'al aeropuerto, por favor'."
           }
         ]
       },
       {
         "step": 2,
-        "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
-        "userTask": "Ask politely: 'Can you help me, please?'",
-        "expectedResponse": "¿Me puede ayudar, por favor?",
+        "npcSpeaker": "Native Speaker (Driver)",
+        "npcLine": "Perfecto, vamos para allá. Hay un poco de tráfico.",
+        "npcTranslation": "Perfect, let me head there. There is a bit of traffic.",
+        "userTask": "Ask the driver: 'How much is the fare approximately?'",
+        "expectedResponse": "¿Cuánto cuesta el viaje aproximadamente?",
         "acceptableVariations": [
-          "Me puede ayudar por favor",
-          "¿Puede ayudarme?"
+          "Cuanto cuesta el viaje aproximadamente",
+          "¿Cuánto es el viaje?",
+          "¿Cuánto cuesta?"
         ],
         "options": [
           {
-            "text": "¿Me puede ayudar, por favor?",
+            "text": "¿Cuánto cuesta el viaje aproximadamente?",
             "isCorrect": true
           },
           {
-            "text": "¿Tú trabajas aquí o qué?",
+            "text": "¿Cuál es tu precio de carro?",
             "isCorrect": false,
-            "reason": "Rude phrasing. Ask politely with '¿me puede ayudar?'"
+            "reason": "Unnatural. Ask '¿cuánto cuesta el viaje?'"
           },
           {
-            "text": "Quiero ayuda inmediatamente",
+            "text": "¿Cuánto dinero yo te doy?",
             "isCorrect": false,
-            "reason": "Impatient phrasing. Use 'por favor'."
+            "reason": "Grammatically awkward. Use '¿cuánto cuesta...?'"
           },
           {
-            "text": "Ayúdame hombre",
+            "text": "¿Es barato tu auto?",
             "isCorrect": false,
-            "reason": "Too informal for a customer service scenario."
+            "reason": "'Is your car cheap?' does not ask for the fare."
           }
         ]
       },
       {
         "step": 3,
-        "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
-        "npcTranslation": "Of course. Here is everything you need.",
-        "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
-        "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
+        "npcSpeaker": "Native Speaker (Driver)",
+        "npcLine": "Serán unos cuatro mil pesos. Ya estamos llegando.",
+        "npcTranslation": "It will be about four thousand pesos. We are arriving now.",
+        "userTask": "Thank the driver: 'Great, here is the money. Thank you!'",
+        "expectedResponse": "Excelente, aquí está el dinero. ¡Gracias!",
         "acceptableVariations": [
-          "Muchas gracias por su ayuda",
-          "Muchas gracias, hasta luego",
-          "Gracias, adios"
+          "Excelente aqui esta el dinero gracias",
+          "Aquí tiene, gracias",
+          "Muchas gracias"
         ],
         "options": [
           {
-            "text": "Muchas gracias por su ayuda. ¡Hasta luego!",
+            "text": "Excelente, aquí está el dinero. ¡Gracias!",
             "isCorrect": true
           },
           {
-            "text": "Chao pescao",
+            "text": "Toma la plata, chau",
             "isCorrect": false,
-            "reason": "Slangy rhyme; stick to 'hasta luego' or 'muchas gracias'."
+            "reason": "Too abrupt for polite customer interaction."
           },
           {
-            "text": "Yo me voy ahora",
+            "text": "De nada, conductor",
             "isCorrect": false,
-            "reason": "Abrupt phrasing. Use 'hasta luego' or 'adiós'."
+            "reason": "'De nada' means 'you're welcome'. Say 'gracias'."
           },
           {
-            "text": "Está bien, bye",
+            "text": "Pagar es fácil",
             "isCorrect": false,
-            "reason": "Use native Spanish farewells like 'hasta luego'."
+            "reason": "Irrelevant phrase. Hand over payment with 'aquí está'."
           }
         ]
       }
@@ -611,48 +545,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_06",
-    "title": "Level 1 Spanish — Unit 06: Hotel Check-In & Room Amenities",
-    "description": "Check into a hotel, ask for a quiet room, and get the Wi-Fi key.",
+    "title": "Level 1 Spanish — Unit 06: Hotel Check-In & Amenities",
+    "description": "Check into your hotel in Seville.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Check into a hotel, ask for a quiet room, and get the Wi-Fi key.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 06: Hotel Check-In & Room Amenities.",
-        "userTask": "Say: 'Hello, I have a reservation for a room.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Check into your hotel in Seville.]",
+        "npcTranslation": "Goal: Start the conversation for Hotel Check-In & Amenities.",
+        "userTask": "Say: 'Hello, I have a reservation.'",
+        "expectedResponse": "Hola, tengo una reservación",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hola tengo una reservacion",
+          "Buenas tardes, tengo una reserva"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Hola, tengo una reservación",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Buenas noches, soy un cliente",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Hola, tengo una reservación'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Yo quiero una cama ahora",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Busco mi cuarto en la calle",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -684,7 +617,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -720,47 +653,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_07",
     "title": "Level 1 Spanish — Unit 07: Asking for the Time & Schedules",
-    "description": "Ask what time the train leaves for Toledo.",
+    "description": "Find out train times at Madrid Atocha station.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask what time the train leaves for Toledo.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 07: Asking for the Time & Schedules.",
+        "npcLine": "[Find out train times at Madrid Atocha station.]",
+        "npcTranslation": "Goal: Start the conversation for Asking for the Time & Schedules.",
         "userTask": "Ask: 'Excuse me, what time does the train leave?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Disculpe, ¿a qué hora sale el tren?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Disculpe a que hora sale el tren",
+          "¿A qué hora sale el tren?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Disculpe, ¿a qué hora sale el tren?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Cuándo es el tren caminante?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Disculpe, ¿a qué hora sale el tren?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "¿Dónde está el reloj aquí?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Dame la hora del tren",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -792,7 +724,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -828,47 +760,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_08",
     "title": "Level 1 Spanish — Unit 08: Meeting a Friend at a Restaurant",
-    "description": "Greet a friend, ask how they are, and order dinner.",
+    "description": "Greet a friend in Lima for dinner.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Greet a friend, ask how they are, and order dinner.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 08: Meeting a Friend at a Restaurant.",
-        "userTask": "Say: 'Hello friend, how are you today?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Greet a friend in Lima for dinner.]",
+        "npcTranslation": "Goal: Start the conversation for Meeting a Friend at a Restaurant.",
+        "userTask": "Say: 'Hello friend! How are you today?'",
+        "expectedResponse": "¡Hola amigo! ¿Cómo estás hoy?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hola amigo como estas hoy",
+          "¡Hola! ¿Cómo estás?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¡Hola amigo! ¿Cómo estás hoy?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Hola compañero, ¿cuál es tu día?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¡Hola amigo! ¿Cómo estás hoy?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Buenos días, ¿quién eres tú?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Qué tal persona",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -900,7 +831,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -935,48 +866,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_09",
-    "title": "Level 1 Spanish — Unit 09: Expressing Hunger, Thirst & Preferences",
-    "description": "Tell your host what foods you like and dislike.",
+    "title": "Level 1 Spanish — Unit 09: Expressing Hunger & Preferences",
+    "description": "Talk about food options with your host.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Tell your host what foods you like and dislike.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 09: Expressing Hunger, Thirst & Preferences.",
+        "npcLine": "[Talk about food options with your host.]",
+        "npcTranslation": "Goal: Start the conversation for Expressing Hunger & Preferences.",
         "userTask": "Say: 'I am hungry, I would like to eat something.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Tengo hambre, quisiera comer algo",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Tengo hambre quisiera comer algo",
+          "Tengo hambre, quiero comer"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Tengo hambre, quisiera comer algo",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Soy hambriento, dame comida",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Tengo hambre, quisiera comer algo'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tengo comida en la boca",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Mi estómago es vacío",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1008,7 +938,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1043,48 +973,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_10",
-    "title": "Level 1 Spanish — Unit 10: Family & Simple Personal Background",
-    "description": "Describe your family and where you live.",
+    "title": "Level 1 Spanish — Unit 10: Family & Personal Background",
+    "description": "Share simple background details with a coworker.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Describe your family and where you live.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 10: Family & Simple Personal Background.",
+        "npcLine": "[Share simple background details with a coworker.]",
+        "npcTranslation": "Goal: Start the conversation for Family & Personal Background.",
         "userTask": "Say: 'I live in a small house with my family.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Vivo en una casa pequeña con mi familia",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Vivo en una casa pequena con mi familia",
+          "Yo vivo con mi familia"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Vivo en una casa pequeña con mi familia",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Estoy viviendo en un cuarto de gente",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Vivo en una casa pequeña con mi familia'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tengo una casa de familia",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Mi residencia es corta",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1116,7 +1045,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1151,48 +1080,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_11",
-    "title": "Level 1 Spanish — Unit 11: Emergency Help & Finding a Pharmacy",
-    "description": "Ask for medical help or a pharmacy for a headache.",
+    "title": "Level 1 Spanish — Unit 11: Pharmacy & Emergency Help",
+    "description": "Ask for medicine at a local pharmacy.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask for medical help or a pharmacy for a headache.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 11: Emergency Help & Finding a Pharmacy.",
+        "npcLine": "[Ask for medicine at a local pharmacy.]",
+        "npcTranslation": "Goal: Start the conversation for Pharmacy & Emergency Help.",
         "userTask": "Ask: 'Excuse me, where is there a pharmacy nearby?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Disculpe, ¿dónde hay una farmacia cerca?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Disculpe donde hay una farmacia cerca",
+          "¿Dónde está la farmacia?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Disculpe, ¿dónde hay una farmacia cerca?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Tiene medicinas en la calle?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Disculpe, ¿dónde hay una farmacia cerca?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Busco un doctor en mi casa",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "¿Dónde es la medicina grande?",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1224,7 +1152,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1260,47 +1188,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_12",
     "title": "Level 1 Spanish — Unit 12: Renting a Car or Bicycle",
-    "description": "Ask about rental prices per day and insurance.",
+    "description": "Inquire about vehicle rental terms.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask about rental prices per day and insurance.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 12: Renting a Car or Bicycle.",
+        "npcLine": "[Inquire about vehicle rental terms.]",
+        "npcTranslation": "Goal: Start the conversation for Renting a Car or Bicycle.",
         "userTask": "Ask: 'How much does it cost to rent a car per day?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "¿Cuánto cuesta alquilar un coche por día?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Cuanto cuesta alquilar un coche por dia",
+          "¿Cuánto cuesta rentar un auto?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Cuánto cuesta alquilar un coche por día?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Cuál es la venta de auto?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Cuánto cuesta alquilar un coche por día?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Quiero comprar un carro hoy",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "¿Tiene billete para coche?",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1332,7 +1259,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1368,47 +1295,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_13",
     "title": "Level 1 Spanish — Unit 13: Buying Clothes & Sizing",
-    "description": "Ask for a shirt in a different size and color.",
+    "description": "Ask a shop assistant for a different size.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask for a shirt in a different size and color.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 13: Buying Clothes & Sizing.",
+        "npcLine": "[Ask a shop assistant for a different size.]",
+        "npcTranslation": "Goal: Start the conversation for Buying Clothes & Sizing.",
         "userTask": "Ask: 'Do you have this shirt in a larger size?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "¿Tiene esta camisa en una talla más grande?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Tiene esta camisa en una talla mas grande",
+          "¿Tiene una talla más grande?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Tiene esta camisa en una talla más grande?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Está la ropa grande aquí?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Tiene esta camisa en una talla más grande?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Dame una camisa de gigante",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Quiero otra tela blanca",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1440,7 +1366,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1476,47 +1402,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_14",
     "title": "Level 1 Spanish — Unit 14: Making Weekend Plans",
-    "description": "Invite someone to go to the park or cinema on Saturday.",
+    "description": "Invite a friend for a Saturday activity.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Invite someone to go to the park or cinema on Saturday.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 14: Making Weekend Plans.",
+        "npcLine": "[Invite a friend for a Saturday activity.]",
+        "npcTranslation": "Goal: Start the conversation for Making Weekend Plans.",
         "userTask": "Say: 'Would you like to go to the park on Saturday?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "¿Te gustaría ir al parque el sábado?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Te gustaria ir al parque el sabado",
+          "¿Quieres ir al parque el sábado?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Te gustaría ir al parque el sábado?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Va usted al parque de semana?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Te gustaría ir al parque el sábado?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "¿Tienes un parque en la mano?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Caminemos en la calle sábado",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1548,7 +1473,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1584,47 +1509,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_15",
     "title": "Level 1 Spanish — Unit 15: Weather Conversations",
-    "description": "Talk about today's weather—whether it's hot, cold, or raining.",
+    "description": "Comment on today's pleasant weather.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Talk about today's weather—whether it's hot, cold, or raining.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 15: Weather Conversations.",
+        "npcLine": "[Comment on today's pleasant weather.]",
+        "npcTranslation": "Goal: Start the conversation for Weather Conversations.",
         "userTask": "Say: 'Today the weather is very nice and warm.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Hoy hace muy buen tiempo y calor",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hoy hace muy buen tiempo y calor",
+          "Hace buen tiempo hoy"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Hoy hace muy buen tiempo y calor",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Hoy el clima es caliente boca",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Hoy hace muy buen tiempo y calor'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tengo sol en la cabeza",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "El día está muy feliz",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1656,7 +1580,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1691,48 +1615,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_16",
-    "title": "Level 1 Spanish — Unit 16: At the Airport & Customs",
-    "description": "Answer basic security questions and find your departure gate.",
+    "title": "Level 1 Spanish — Unit 16: Airport Boarding & Gates",
+    "description": "Find your flight boarding gate.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Answer basic security questions and find your departure gate.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 16: At the Airport & Customs.",
-        "userTask": "Say: 'Excuse me, where is gate number five?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Find your flight boarding gate.]",
+        "npcTranslation": "Goal: Start the conversation for Airport Boarding & Gates.",
+        "userTask": "Ask: 'Excuse me, where is gate number five?'",
+        "expectedResponse": "Disculpe, ¿dónde está la puerta número cinco?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Disculpe donde esta la puerta numero cinco",
+          "¿Dónde está la puerta cinco?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Disculpe, ¿dónde está la puerta número cinco?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Dónde está la entrada de avión?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Disculpe, ¿dónde está la puerta número cinco?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Busco la salida de vuelo",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "¿Tiene cinco puertas aquí?",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1764,7 +1687,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1799,48 +1722,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_17",
-    "title": "Level 1 Spanish — Unit 17: Talking About Work & Professions",
-    "description": "Explain what job you do and ask about their career.",
+    "title": "Level 1 Spanish — Unit 17: Talking About Work",
+    "description": "Discuss your job with a companion.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Explain what job you do and ask about their career.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 17: Talking About Work & Professions.",
+        "npcLine": "[Discuss your job with a companion.]",
+        "npcTranslation": "Goal: Start the conversation for Talking About Work.",
         "userTask": "Say: 'I work as a teacher. And you?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Trabajo como profesor. ¿Y usted?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Trabajo como profesor. Y usted",
+          "Soy profesor. ¿Y tú?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Trabajo como profesor. ¿Y usted?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Hago la enseñanza de gente",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Trabajo como profesor. ¿Y usted?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Mi trabajo es la escuela",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Estoy un profesor hoy",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1872,7 +1794,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -1907,48 +1829,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_18",
-    "title": "Level 1 Spanish — Unit 18: Inviting Someone to Coffee",
-    "description": "Suggest taking a coffee break together at 4 PM.",
+    "title": "Level 1 Spanish — Unit 18: Inviting Someone for Coffee",
+    "description": "Propose a quick afternoon coffee break.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Suggest taking a coffee break together at 4 PM.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 18: Inviting Someone to Coffee.",
-        "userTask": "Say: 'Would you like to drink a coffee at four o'clock?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Propose a quick afternoon coffee break.]",
+        "npcTranslation": "Goal: Start the conversation for Inviting Someone for Coffee.",
+        "userTask": "Say: 'Would you like to drink a coffee at four?'",
+        "expectedResponse": "¿Te gustaría tomar un café a las cuatro?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Te gustaria tomar un cafe a las cuatro",
+          "¿Quieres tomar un café?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Te gustaría tomar un café a las cuatro?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Bebes café de la tarde?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Te gustaría tomar un café a las cuatro?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tomamos agua negra a cuatro",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Vamos a la cocina cuatro",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -1980,7 +1901,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2016,47 +1937,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_19",
     "title": "Level 1 Spanish — Unit 19: Buying Train Tickets",
-    "description": "Purchase one-way or round-trip tickets at the station.",
+    "description": "Purchase a ticket at the ticket counter.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Purchase one-way or round-trip tickets at the station.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 19: Buying Train Tickets.",
-        "userTask": "Say: 'I would like a one-way ticket to Toledo, please.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Purchase a ticket at the ticket counter.]",
+        "npcTranslation": "Goal: Start the conversation for Buying Train Tickets.",
+        "userTask": "Say: 'I would like a one-way ticket, please.'",
+        "expectedResponse": "Quisiera un billete de ida, por favor",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Quisiera un billete de ida por favor",
+          "Un boleto de ida, por favor"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Quisiera un billete de ida, por favor",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Quiero un papel para viajar",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Quisiera un billete de ida, por favor'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Dame un billete de tren solo",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Tengo una entrada de camino",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2088,7 +2008,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2124,47 +2044,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_20",
     "title": "Level 1 Spanish — Unit 20: Asking About Local Attractions",
-    "description": "Ask a concierge for museum recommendations.",
+    "description": "Ask for sightseeing advice at tourist info.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Ask a concierge for museum recommendations.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 20: Asking About Local Attractions.",
-        "userTask": "Ask: 'What museum do you recommend visiting today?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Ask for sightseeing advice at tourist info.]",
+        "npcTranslation": "Goal: Start the conversation for Asking About Local Attractions.",
+        "userTask": "Ask: 'What museum do you recommend visiting?'",
+        "expectedResponse": "¿Qué museo me recomienda visitar?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Que museo me recomienda visitar",
+          "¿Qué museo me recomienda?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Qué museo me recomienda visitar?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Cuál es la casa antigua?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Qué museo me recomienda visitar?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "¿Tiene un museo en la ciudad?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Busco fotos de la ciudad",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2196,7 +2115,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2231,48 +2150,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_21",
-    "title": "Level 1 Spanish — Unit 21: Daily Routines & Schedules",
-    "description": "Talk about what time you wake up and go to sleep.",
+    "title": "Level 1 Spanish — Unit 21: Daily Routines",
+    "description": "Share your regular morning routine.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Talk about what time you wake up and go to sleep.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 21: Daily Routines & Schedules.",
+        "npcLine": "[Share your regular morning routine.]",
+        "npcTranslation": "Goal: Start the conversation for Daily Routines.",
         "userTask": "Say: 'I wake up every day at seven in the morning.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Me despierto todos los días a las siete de la mañana",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Me despierto todos los dias a las siete de la mañana",
+          "Me levanto a las siete"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Me despierto todos los días a las siete de la mañana",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Levanto mi cuerpo a siete",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Me despierto todos los días a las siete de la mañana'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Abro los ojos en la mañana",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Mi mañana es a las siete",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2304,7 +2222,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2339,48 +2257,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_22",
-    "title": "Level 1 Spanish — Unit 22: Expressing Emotions & Feelings",
-    "description": "Say how you are feeling (happy, tired, busy).",
+    "title": "Level 1 Spanish — Unit 22: Expressing Emotions",
+    "description": "Express happiness about your current trip.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Say how you are feeling (happy, tired, busy).]",
-        "npcTranslation": "Goal: Start the conversation for Unit 22: Expressing Emotions & Feelings.",
+        "npcLine": "[Express happiness about your current trip.]",
+        "npcTranslation": "Goal: Start the conversation for Expressing Emotions.",
         "userTask": "Say: 'I am very happy to be here today.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Estoy muy feliz de estar aquí hoy",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Estoy muy feliz de estar aqui hoy",
+          "Estoy muy contento de estar aquí"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Estoy muy feliz de estar aquí hoy",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Soy feliz en este lugar",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Estoy muy feliz de estar aquí hoy'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tengo felicidad de estar aquí",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Mi día es muy alegre aquí",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2412,7 +2329,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2448,47 +2365,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_23",
     "title": "Level 1 Spanish — Unit 23: Phone Calls & Leaving Messages",
-    "description": "Call a receptionist and ask to speak with someone.",
+    "description": "Request to speak with a manager on the phone.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Call a receptionist and ask to speak with someone.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 23: Phone Calls & Leaving Messages.",
+        "npcLine": "[Request to speak with a manager on the phone.]",
+        "npcTranslation": "Goal: Start the conversation for Phone Calls & Leaving Messages.",
         "userTask": "Say: 'Hello, may I speak with Mr. Garcia, please?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Hola, ¿puedo hablar con el señor García, por favor?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hola puedo hablar con el señor Garcia por favor",
+          "¿Puedo hablar con el señor García?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Hola, ¿puedo hablar con el señor García, por favor?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Llamo al hombre García",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Hola, ¿puedo hablar con el señor García, por favor?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "¿Está García en el teléfono?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Quiero escuchar a García",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2520,7 +2436,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2555,48 +2471,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_24",
-    "title": "Level 1 Spanish — Unit 24: At the Bakery & Grocery Store",
-    "description": "Buy fresh bread, cheese, and wine.",
+    "title": "Level 1 Spanish — Unit 24: Bakery & Grocery Shopping",
+    "description": "Order fresh bread at the local bakery.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Buy fresh bread, cheese, and wine.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 24: At the Bakery & Grocery Store.",
-        "userTask": "Say: 'I would like a loaf of bread and a bottle of wine.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Order fresh bread at the local bakery.]",
+        "npcTranslation": "Goal: Start the conversation for Bakery & Grocery Shopping.",
+        "userTask": "Say: 'I would like a loaf of bread, please.'",
+        "expectedResponse": "Quisiera una barra de pan, por favor",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Quisiera una barra de pan por favor",
+          "Un pan, por favor"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Quisiera una barra de pan, por favor",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Dame la comida de trigo",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Quisiera una barra de pan, por favor'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Quiero comer pan blanco",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Tengo pan en mi mesa",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2628,7 +2543,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2663,48 +2578,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_25",
-    "title": "Level 1 Spanish — Unit 25: Discussing Hobbies & Sports",
-    "description": "Talk about playing soccer, reading, or swimming.",
+    "title": "Level 1 Spanish — Unit 25: Hobbies & Sports",
+    "description": "Discuss sports you enjoy playing.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Talk about playing soccer, reading, or swimming.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 25: Discussing Hobbies & Sports.",
+        "npcLine": "[Discuss sports you enjoy playing.]",
+        "npcTranslation": "Goal: Start the conversation for Hobbies & Sports.",
         "userTask": "Say: 'I really like playing soccer on weekends.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Me gusta mucho jugar al fútbol los fines de semana",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Me gusta mucho jugar al futbol los fines de semana",
+          "Me gusta jugar fútbol"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Me gusta mucho jugar al fútbol los fines de semana",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Tengo amor por la pelota",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Me gusta mucho jugar al fútbol los fines de semana'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Juego el balón de pie",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Mi deporte es la pelota",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2736,7 +2650,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2772,47 +2686,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_26",
     "title": "Level 1 Spanish — Unit 26: Giving Directions in a Building",
-    "description": "Explain which floor the office is on.",
+    "description": "Explain room location inside an office.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Explain which floor the office is on.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 26: Giving Directions in a Building.",
+        "npcLine": "[Explain room location inside an office.]",
+        "npcTranslation": "Goal: Start the conversation for Giving Directions in a Building.",
         "userTask": "Say: 'The office is on the second floor to the right.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "La oficina está en el segundo piso a la derecha",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "La oficina esta en el segundo piso a la derecha",
+          "La oficina está a la derecha"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "La oficina está en el segundo piso a la derecha",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "El cuarto es piso dos",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'La oficina está en el segundo piso a la derecha'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "La oficina queda arriba dos",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Camine al nivel dos derecha",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2844,7 +2757,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2879,48 +2792,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_27",
-    "title": "Level 1 Spanish — Unit 27: Negotiating Prices & Discounts",
-    "description": "Politely ask if a discount is available at a souvenir shop.",
+    "title": "Level 1 Spanish — Unit 27: Price Discounts & Bargaining",
+    "description": "Ask politely if a price reduction is possible.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Politely ask if a discount is available at a souvenir shop.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 27: Negotiating Prices & Discounts.",
-        "userTask": "Ask: 'Is there a discount if I buy two souvenirs?'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Ask politely if a price reduction is possible.]",
+        "npcTranslation": "Goal: Start the conversation for Price Discounts & Bargaining.",
+        "userTask": "Ask: 'Is there a discount if I buy two?'",
+        "expectedResponse": "¿Hay un descuento si compro dos?",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Hay un descuento si compro dos",
+          "¿Tiene descuento?"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¿Hay un descuento si compro dos?",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "¿Es más barato con dos cosas?",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¿Hay un descuento si compro dos?'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "¿Baja el precio de dos?",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Dame dinero menos si tomo dos",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -2952,7 +2864,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -2988,47 +2900,46 @@ window.CONVERSATIONAL_SCENARIOS = [
   {
     "id": "unit_28",
     "title": "Level 1 Spanish — Unit 28: Celebrating a Birthday",
-    "description": "Wish someone happy birthday and offer a toast.",
+    "description": "Offer birthday congratulations to a friend.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Wish someone happy birthday and offer a toast.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 28: Celebrating a Birthday.",
-        "userTask": "Say: 'Happy birthday! I wish you the best today.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Offer birthday congratulations to a friend.]",
+        "npcTranslation": "Goal: Start the conversation for Celebrating a Birthday.",
+        "userTask": "Say: 'Happy birthday! I wish you the best.'",
+        "expectedResponse": "¡Feliz cumpleaños! Te deseo lo mejor",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Feliz cumpleanos te deseo lo mejor",
+          "¡Feliz cumpleaños!"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "¡Feliz cumpleaños! Te deseo lo mejor",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Buen día de nacer amigo",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is '¡Feliz cumpleaños! Te deseo lo mejor'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Celebración feliz para ti",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Que tengas un año más",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -3060,7 +2971,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -3095,48 +3006,47 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_29",
-    "title": "Level 1 Spanish — Unit 29: Ordering Dessert & After-Dinner Coffee",
-    "description": "Order ice cream and espresso after a meal.",
+    "title": "Level 1 Spanish — Unit 29: Ordering Dessert",
+    "description": "Order ice cream at the end of a meal.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Order ice cream and espresso after a meal.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 29: Ordering Dessert & After-Dinner Coffee.",
-        "userTask": "Say: 'For dessert, I would like chocolate ice cream, please.'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "npcLine": "[Order ice cream at the end of a meal.]",
+        "npcTranslation": "Goal: Start the conversation for Ordering Dessert.",
+        "userTask": "Say: 'For dessert, I would like chocolate ice cream.'",
+        "expectedResponse": "De postre, quisiera helado de chocolate",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "De postre quisiera helado de chocolate",
+          "Quiero helado de chocolate"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "De postre, quisiera helado de chocolate",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Para dulce quiero frío de chocolate",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'De postre, quisiera helado de chocolate'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Tomo la crema helada dulce",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Dame dulce de chocolate",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -3168,7 +3078,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
@@ -3203,48 +3113,48 @@ window.CONVERSATIONAL_SCENARIOS = [
   },
   {
     "id": "unit_30",
-    "title": "Level 1 Spanish — Unit 30: Farewell & Social Small Talk",
-    "description": "Express pleasure meeting someone and wish them a safe trip.",
+    "title": "Level 1 Spanish — Unit 30: Farewell & Safe Travel Wishes",
+    "description": "Wish a fellow traveler a safe journey home.",
     "steps": [
       {
         "step": 1,
         "npcSpeaker": "Scenario Setting",
-        "npcLine": "[Express pleasure meeting someone and wish them a safe trip.]",
-        "npcTranslation": "Goal: Start the conversation for Unit 30: Farewell & Social Small Talk.",
+        "npcLine": "[Wish a fellow traveler a safe journey home.]",
+        "npcTranslation": "Goal: Start the conversation for Farewell & Safe Travel Wishes.",
         "userTask": "Say: 'It was a pleasure meeting you. Have a safe trip!'",
-        "expectedResponse": "Hola, buenos días, quisiera información",
+        "expectedResponse": "Fue un placer conocerte. ¡Buen viaje!",
         "acceptableVariations": [
-          "Hola buenos dias",
-          "Buenos días",
-          "Disculpe, buenas tardes"
+          "Fue un placer conocerte buen viaje",
+          "¡Mucho gusto y buen viaje!",
+          "Fue un placer. ¡Buen viaje!"
         ],
         "options": [
           {
-            "text": "Hola, buenos días, quisiera información",
+            "text": "Fue un placer conocerte. ¡Buen viaje!",
             "isCorrect": true
           },
           {
-            "text": "Dame esto rápido",
+            "text": "Gusto de hablar. Camina bien",
             "isCorrect": false,
-            "reason": "Too direct and demanding. Use 'quisiera' or 'por favor'."
+            "reason": "Literal translation error. Native expression is 'Fue un placer conocerte. ¡Buen viaje!'."
           },
           {
-            "text": "Yo busco cosas",
+            "text": "Adios amigo de viaje",
             "isCorrect": false,
-            "reason": "Unnatural phrasing. Say 'quisiera información'."
+            "reason": "Unnatural phrasing for this situational context."
           },
           {
-            "text": "¿Qué pasa hombre?",
+            "text": "Que tengas un auto rápido",
             "isCorrect": false,
-            "reason": "Overly slangy for a formal transaction setting."
+            "reason": "Incorrect vocabulary or grammatical structure."
           }
         ]
       },
       {
         "step": 2,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar hoy?",
-        "npcTranslation": "With pleasure, how can I help you today?",
+        "npcLine": "Con mucho gusto, ¿en qué le puedo ayudar?",
+        "npcTranslation": "With pleasure, how can I help you?",
         "userTask": "Ask politely: 'Can you help me, please?'",
         "expectedResponse": "¿Me puede ayudar, por favor?",
         "acceptableVariations": [
@@ -3276,7 +3186,7 @@ window.CONVERSATIONAL_SCENARIOS = [
       {
         "step": 3,
         "npcSpeaker": "Native Speaker (Local)",
-        "npcLine": "Por supuesto. Aquí tiene todo lo necesario.",
+        "npcLine": "Por supuesto. Aquí tiene todo lo que necesita.",
         "npcTranslation": "Of course. Here is everything you need.",
         "userTask": "Thank them warmly: 'Thank you very much for your help. Goodbye!'",
         "expectedResponse": "Muchas gracias por su ayuda. ¡Hasta luego!",
