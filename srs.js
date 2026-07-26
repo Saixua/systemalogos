@@ -3,8 +3,14 @@
  */
 
 class SRSEngine {
-  constructor(storageKey = 'antigravity_srs_data') {
-    this.storageKey = storageKey;
+  constructor(storageKey = 'systemalogos_srs_spanish') {
+    const activeLang = localStorage.getItem('systemalogos_active_language') || 'spanish';
+    this.storageKey = `systemalogos_srs_${activeLang}`;
+    this.userStates = this.loadStates();
+  }
+
+  setLanguageScope(langKey) {
+    this.storageKey = `systemalogos_srs_${langKey || 'spanish'}`;
     this.userStates = this.loadStates();
   }
 

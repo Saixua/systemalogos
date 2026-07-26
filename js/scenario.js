@@ -4,107 +4,150 @@
  * File: /js/scenario.js
  * ============================================================================
  * Purpose:
- *   Manages 30 real-world conversational scenarios, turn-taking dialogues,
- *   NPC speaker audio synthesis, user speech recognition / text grading,
- *   anti-literal trap guidance, and scenario progress tracking.
+ *   Manages real-world conversational scenarios across languages (Spanish 🇪🇸,
+ *   French 🇫🇷, German 🇩🇪), turn-taking dialogues, NPC speaker audio synthesis,
+ *   user speech recognition / text grading, and scenario progress tracking.
  * ============================================================================
  */
 
-import { speakSpanish, isSpeechEnabled } from './audio.js';
-import { updateAchievementProgress } from './achievements.js';
+(function(window) {
+  let allScenarios = window.CONVERSATIONAL_SCENARIOS || [];
+  let currentScenarioIdx = 0;
+  let currentScenarioStepIdx = 0;
 
-export let allScenarios = window.CONVERSATIONAL_SCENARIOS || [];
-export let currentScenarioIdx = 0;
-export let currentScenarioStepIdx = 0;
-
-export function initScenarios() {
-  allScenarios = window.CONVERSATIONAL_SCENARIOS || [];
-  populateScenarioSelect();
-  renderCurrentScenarioStep();
-}
-
-export function populateScenarioSelect() {
-  const select = document.getElementById('scenario-unit-select');
-  if (!select) return;
-
-  select.innerHTML = allScenarios.map((sc, idx) => `
-    <option value="${idx}">Scenario ${idx + 1}: ${sc.title} (${sc.difficulty})</option>
-  `).join('');
-
-  select.value = currentScenarioIdx;
-  select.onchange = (e) => {
-    currentScenarioIdx = parseInt(e.target.value, 10);
-    currentScenarioStepIdx = 0;
-    renderCurrentScenarioStep();
-  };
-}
-
-export function renderCurrentScenarioStep() {
-  if (!allScenarios || allScenarios.length === 0) return;
-  const currentScenario = allScenarios[currentScenarioIdx];
-  if (!currentScenario || !currentScenario.steps) return;
-
-  const step = currentScenario.steps[currentScenarioStepIdx];
-
-  const descEl = document.getElementById('scenario-desc');
-  const stepBadge = document.getElementById('scenario-step-badge');
-  const npcSpeaker = document.getElementById('scenario-npc-speaker');
-  const npcLine = document.getElementById('scenario-npc-line');
-  const npcTranslation = document.getElementById('scenario-npc-translation');
-  const userTask = document.getElementById('scenario-user-task');
-
-  if (descEl) descEl.textContent = currentScenario.description;
-  if (stepBadge) stepBadge.textContent = `Step ${currentScenarioStepIdx + 1} of ${currentScenario.steps.length}`;
-  if (npcSpeaker) npcSpeaker.textContent = step.npcSpeaker || 'Local Speaker';
-  if (npcLine) npcLine.textContent = `"${step.npcSpanish}"`;
-  if (npcTranslation) npcTranslation.textContent = `"${step.npcEnglish}"`;
-  if (userTask) userTask.textContent = step.userGoal;
-
-  if (isSpeechEnabled() && step.npcSpanish) {
-    setTimeout(() => speakSpanish(step.npcSpanish, 'female'), 200);
+  function initScenarios() {
+    const activeLang = localStorage.getItem('systemalogos_active_language') || 'spanish';
+    loadScenariosForLanguage(activeLang);
   }
-}
 
-export function submitScenarioResponse(userText) {
-  if (!allScenarios || allScenarios.length === 0) return;
-  const currentScenario = allScenarios[currentScenarioIdx];
-  const step = currentScenario.steps[currentScenarioStepIdx];
+  async function loadScenariosForLanguage(langKey) {
+    try {
+      const resp = await fetch(`scenarios/${langKey || 'spanish'}_scenarios.json`);
+      if (resp.ok) {
+        allScenarios = await resp.json();
+      } else if (window.CONVERSATIONAL_SCENARIOS) {
+        allScenarios = window.CONVERSATIONAL_SCENARIOS;
+      }
+    } catch (e) {
+      console.warn(`Could not load scenarios/${langKey}_scenarios.json:`, e);
+      allScenarios = window.CONVERSATIONAL_SCENARIOS || [];
+    }
+    currentScenarioIdx = 0;
+    currentScenarioStepIdx = 0;
+    populateScenarioSelect();
+    renderCurrentScenarioStep();
+  }
 
-  const cleanInput = userText.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?¡¿]/g, "");
-  const isMatch = step.acceptableResponses.some(resp => {
-    const cleanResp = resp.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?¡¿]/g, "");
-    return cleanInput === cleanResp || cleanInput.includes(cleanResp);
-  });
+  function populateScenarioSelect() {
+    const select = document.getElementById('scenario-unit-select');
+    if (!select) return;
 
-  const feedbackEl = document.getElementById('scenario-feedback-box');
-  if (feedbackEl) {
-    if (isMatch) {
-      feedbackEl.style.display = 'block';
-      feedbackEl.style.background = 'rgba(52, 211, 153, 0.15)';
-      feedbackEl.style.borderColor = '#34d399';
-      feedbackEl.style.color = '#34d399';
-      feedbackEl.innerHTML = `<strong><i class="fa-solid fa-circle-check"></i> Excellent!</strong> Your response was understood perfectly.`;
+    if (!allScenarios || allScenarios.length === 0) {
+      select.innerHTML = '<option value="">No scenarios available for this course</option>';
+      return;
+    }
 
-      setTimeout(() => {
-        feedbackEl.style.display = 'none';
-        if (currentScenarioStepIdx < currentScenario.steps.length - 1) {
-          currentScenarioStepIdx++;
-          renderCurrentScenarioStep();
-        } else {
-          updateAchievementProgress('scenario_pro', 1);
-          alert(`🎉 Scenario Completed: You mastered '${currentScenario.title}'!`);
-          currentScenarioIdx = (currentScenarioIdx + 1) % allScenarios.length;
-          currentScenarioStepIdx = 0;
-          populateScenarioSelect();
-          renderCurrentScenarioStep();
-        }
-      }, 1500);
-    } else {
-      feedbackEl.style.display = 'block';
-      feedbackEl.style.background = 'rgba(239, 68, 68, 0.15)';
-      feedbackEl.style.borderColor = '#f87171';
-      feedbackEl.style.color = '#f87171';
-      feedbackEl.innerHTML = `<strong><i class="fa-solid fa-circle-xmark"></i> Try again!</strong> Expected response like: <em>"${step.acceptableResponses[0]}"</em>`;
+    select.innerHTML = allScenarios.map((sc, idx) => {
+      const diffLabel = sc.difficulty ? ` (${sc.difficulty})` : '';
+      return `<option value="${idx}">Scenario ${idx + 1}: ${sc.title}${diffLabel}</option>`;
+    }).join('');
+
+    select.value = currentScenarioIdx;
+    select.onchange = (e) => {
+      currentScenarioIdx = parseInt(e.target.value, 10);
+      currentScenarioStepIdx = 0;
+      renderCurrentScenarioStep();
+    };
+  }
+
+  function renderCurrentScenarioStep() {
+    if (!allScenarios || allScenarios.length === 0) return;
+    const currentScenario = allScenarios[currentScenarioIdx];
+    if (!currentScenario || !currentScenario.steps) return;
+
+    const step = currentScenario.steps[currentScenarioStepIdx];
+
+    const descEl = document.getElementById('scenario-desc');
+    const stepBadge = document.getElementById('scenario-step-badge');
+    const npcSpeaker = document.getElementById('scenario-npc-speaker');
+    const npcLine = document.getElementById('scenario-npc-line');
+    const npcTranslation = document.getElementById('scenario-npc-translation');
+    const userTask = document.getElementById('scenario-user-task');
+
+    const spanishText = step.npcLine || step.npcSpanish || '';
+    const translationText = step.npcTranslation || step.npcEnglish || '';
+    const taskText = step.userTask || step.userGoal || '';
+
+    if (descEl) descEl.textContent = currentScenario.description || '';
+    if (stepBadge) stepBadge.textContent = `Step ${currentScenarioStepIdx + 1} of ${currentScenario.steps.length}`;
+    if (npcSpeaker) npcSpeaker.textContent = step.npcSpeaker || 'Scenario Setting';
+    if (npcLine) npcLine.textContent = `"${spanishText}"`;
+    if (npcTranslation) npcTranslation.textContent = `"${translationText}"`;
+    if (userTask) userTask.textContent = taskText;
+
+    if (window.AudioModule && window.AudioModule.isSpeechEnabled() && spanishText && !spanishText.startsWith('[')) {
+      setTimeout(() => window.AudioModule.speakSpanish(spanishText, 'female'), 200);
     }
   }
-}
+
+  function submitScenarioResponse(userText) {
+    if (!allScenarios || allScenarios.length === 0) return;
+    const currentScenario = allScenarios[currentScenarioIdx];
+    const step = currentScenario.steps[currentScenarioStepIdx];
+
+    const acceptableList = [
+      step.expectedResponse,
+      ...(step.acceptableVariations || []),
+      ...(step.acceptableResponses || [])
+    ].filter(Boolean);
+
+    const cleanInput = userText.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?¡¿"']/g, "");
+    const isMatch = acceptableList.some(resp => {
+      const cleanResp = resp.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?¡¿"']/g, "");
+      return cleanInput === cleanResp || cleanInput.includes(cleanResp);
+    });
+
+    const feedbackEl = document.getElementById('scenario-feedback-box');
+    if (feedbackEl) {
+      if (isMatch) {
+        feedbackEl.style.display = 'block';
+        feedbackEl.style.background = 'rgba(52, 211, 153, 0.15)';
+        feedbackEl.style.borderColor = '#34d399';
+        feedbackEl.style.color = '#34d399';
+        feedbackEl.innerHTML = `<strong><i class="fa-solid fa-circle-check"></i> Excellent!</strong> Your response was understood perfectly.`;
+
+        setTimeout(() => {
+          feedbackEl.style.display = 'none';
+          if (currentScenarioStepIdx < currentScenario.steps.length - 1) {
+            currentScenarioStepIdx++;
+            renderCurrentScenarioStep();
+          } else {
+            if (window.AchievementsModule) {
+              window.AchievementsModule.updateAchievementProgress('scenario_pro', 1);
+            }
+            alert(`🎉 Scenario Completed: You mastered '${currentScenario.title}'!`);
+            currentScenarioIdx = (currentScenarioIdx + 1) % allScenarios.length;
+            currentScenarioStepIdx = 0;
+            populateScenarioSelect();
+            renderCurrentScenarioStep();
+          }
+        }, 1500);
+      } else {
+        const hint = acceptableList.length > 0 ? acceptableList[0] : '';
+        feedbackEl.style.display = 'block';
+        feedbackEl.style.background = 'rgba(239, 68, 68, 0.15)';
+        feedbackEl.style.borderColor = '#f87171';
+        feedbackEl.style.color = '#f87171';
+        feedbackEl.innerHTML = `<strong><i class="fa-solid fa-circle-xmark"></i> Try again!</strong> Expected response like: <em>"${hint}"</em>`;
+      }
+    }
+  }
+
+  window.ScenarioModule = {
+    initScenarios,
+    loadScenariosForLanguage,
+    populateScenarioSelect,
+    renderCurrentScenarioStep,
+    submitScenarioResponse
+  };
+})(window);

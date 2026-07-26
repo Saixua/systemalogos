@@ -1,0 +1,566 @@
+[
+  {
+    "id": "fr_unit_01",
+    "title": "Level 1 French — Unit 01: Polite Greetings & Language Barriers",
+    "description": "Master practical conversational dialogues in San Juan / Paris Street.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "San Juan / Paris Street",
+        "npcLine": "Bonjour monsieur, vous désirez ?",
+        "npcTranslation": "Hello sir, what would you like?",
+        "userTask": "Respond appropriately in French to: 'Hello sir, what would you like?'",
+        "expectedResponse": "Un café, s'il vous plaît",
+        "acceptableVariations": [
+          "Un cafe s'il vous plait"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_02",
+    "title": "Level 1 French — Unit 02: Directions & Navigation",
+    "description": "Master practical conversational dialogues in Paris Metro.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Metro",
+        "npcLine": "Pardon, la station de métro est où ?",
+        "npcTranslation": "Excuse me, where is the metro station?",
+        "userTask": "Respond appropriately in French to: 'Excuse me, where is the metro station?'",
+        "expectedResponse": "Allez tout droit puis tournez à droite",
+        "acceptableVariations": [
+          "Tout droit puis a droite"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_03",
+    "title": "Level 1 French — Unit 03: Dining & Restaurant Ordering",
+    "description": "Master practical conversational dialogues in Parisian Bistro.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Parisian Bistro",
+        "npcLine": "Avez-vous une réservation pour ce soir ?",
+        "npcTranslation": "Do you have a reservation for tonight?",
+        "userTask": "Respond appropriately in French to: 'Do you have a reservation for tonight?'",
+        "expectedResponse": "Oui, j'ai une réservation pour deux",
+        "acceptableVariations": [
+          "Oui jai une reservation pour deux"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_04",
+    "title": "Level 1 French — Unit 04: Hotel Check-In & Accommodations",
+    "description": "Master practical conversational dialogues in Nice Hotel.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Nice Hotel",
+        "npcLine": "Bienvenue ! Quel est votre nom ?",
+        "npcTranslation": "Welcome! What is your name?",
+        "userTask": "Respond appropriately in French to: 'Welcome! What is your name?'",
+        "expectedResponse": "Mon nom est Smith, voici mon passeport",
+        "acceptableVariations": [
+          "Mon nom est Smith"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_05",
+    "title": "Level 1 French — Unit 05: Bakery & Grocery Shopping",
+    "description": "Master practical conversational dialogues in Paris Bakery.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Bakery",
+        "npcLine": "Bonjour ! Que voulez-vous aujourd'hui ?",
+        "npcTranslation": "Hello! What would you like today?",
+        "userTask": "Respond appropriately in French to: 'Hello! What would you like today?'",
+        "expectedResponse": "Deux croissants et une baguette, s'il vous plaît",
+        "acceptableVariations": [
+          "Deux croissants et une baguette"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_06",
+    "title": "Level 1 French — Unit 06: Train & Airport Transit",
+    "description": "Master practical conversational dialogues in CDG Airport / Gare de Lyon.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "CDG Airport / Gare de Lyon",
+        "npcLine": "Où allez-vous aujourd'hui ?",
+        "npcTranslation": "Where are you going today?",
+        "userTask": "Respond appropriately in French to: 'Where are you going today?'",
+        "expectedResponse": "Un billet aller-retour pour Lyon, s'il vous plaît",
+        "acceptableVariations": [
+          "Un billet pour Lyon"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_07",
+    "title": "Level 1 French — Unit 07: Medical & Emergency Help",
+    "description": "Master practical conversational dialogues in Pharmacy / Hospital.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Pharmacy / Hospital",
+        "npcLine": "Qu'est-ce qui ne va pas ?",
+        "npcTranslation": "What is wrong?",
+        "userTask": "Respond appropriately in French to: 'What is wrong?'",
+        "expectedResponse": "J'ai mal à la tête et besoin d'un médecin",
+        "acceptableVariations": [
+          "Jai mal a la tete"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_08",
+    "title": "Level 1 French — Unit 08: Shopping & Price Negotiation",
+    "description": "Master practical conversational dialogues in Paris Boutique.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Boutique",
+        "npcLine": "Puis-je vous aider ?",
+        "npcTranslation": "May I help you?",
+        "userTask": "Respond appropriately in French to: 'May I help you?'",
+        "expectedResponse": "Combien coûte cette veste en cuir ?",
+        "acceptableVariations": "Combien coute cette veste"
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_09",
+    "title": "Level 1 French — Unit 09: Socializing & Making Friends",
+    "description": "Master practical conversational dialogues in Café Terrace.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Café Terrace",
+        "npcLine": "D'où venez-vous ?",
+        "npcTranslation": "Where do you come from?",
+        "userTask": "Respond appropriately in French to: 'Where do you come from?'",
+        "expectedResponse": "Je viens des États-Unis et j'apprends le français",
+        "acceptableVariations": [
+          "Je viens des Etats Unis"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_10",
+    "title": "Level 1 French — Unit 10: Work & Professional Meetings",
+    "description": "Master practical conversational dialogues in Office Meeting.",
+    "difficulty": "Foundation",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Office Meeting",
+        "npcLine": "Bienvenue à la réunion. Commençons.",
+        "npcTranslation": "Welcome to the meeting. Let us begin.",
+        "userTask": "Respond appropriately in French to: 'Welcome to the meeting. Let us begin.'",
+        "expectedResponse": "Merci, je suis prêt à présenter le projet",
+        "acceptableVariations": [
+          "Merci je suis pret"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_11",
+    "title": "Level 2 French — Unit 11: Polite Greetings & Language Barriers",
+    "description": "Master practical conversational dialogues in San Juan / Paris Street.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "San Juan / Paris Street",
+        "npcLine": "Bonjour monsieur, vous désirez ?",
+        "npcTranslation": "Hello sir, what would you like?",
+        "userTask": "Respond appropriately in French to: 'Hello sir, what would you like?'",
+        "expectedResponse": "Un café, s'il vous plaît",
+        "acceptableVariations": [
+          "Un cafe s'il vous plait"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_12",
+    "title": "Level 2 French — Unit 12: Directions & Navigation",
+    "description": "Master practical conversational dialogues in Paris Metro.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Metro",
+        "npcLine": "Pardon, la station de métro est où ?",
+        "npcTranslation": "Excuse me, where is the metro station?",
+        "userTask": "Respond appropriately in French to: 'Excuse me, where is the metro station?'",
+        "expectedResponse": "Allez tout droit puis tournez à droite",
+        "acceptableVariations": [
+          "Tout droit puis a droite"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_13",
+    "title": "Level 2 French — Unit 13: Dining & Restaurant Ordering",
+    "description": "Master practical conversational dialogues in Parisian Bistro.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Parisian Bistro",
+        "npcLine": "Avez-vous une réservation pour ce soir ?",
+        "npcTranslation": "Do you have a reservation for tonight?",
+        "userTask": "Respond appropriately in French to: 'Do you have a reservation for tonight?'",
+        "expectedResponse": "Oui, j'ai une réservation pour deux",
+        "acceptableVariations": [
+          "Oui jai une reservation pour deux"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_14",
+    "title": "Level 2 French — Unit 14: Hotel Check-In & Accommodations",
+    "description": "Master practical conversational dialogues in Nice Hotel.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Nice Hotel",
+        "npcLine": "Bienvenue ! Quel est votre nom ?",
+        "npcTranslation": "Welcome! What is your name?",
+        "userTask": "Respond appropriately in French to: 'Welcome! What is your name?'",
+        "expectedResponse": "Mon nom est Smith, voici mon passeport",
+        "acceptableVariations": [
+          "Mon nom est Smith"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_15",
+    "title": "Level 2 French — Unit 15: Bakery & Grocery Shopping",
+    "description": "Master practical conversational dialogues in Paris Bakery.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Bakery",
+        "npcLine": "Bonjour ! Que voulez-vous aujourd'hui ?",
+        "npcTranslation": "Hello! What would you like today?",
+        "userTask": "Respond appropriately in French to: 'Hello! What would you like today?'",
+        "expectedResponse": "Deux croissants et une baguette, s'il vous plaît",
+        "acceptableVariations": [
+          "Deux croissants et une baguette"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_16",
+    "title": "Level 2 French — Unit 16: Train & Airport Transit",
+    "description": "Master practical conversational dialogues in CDG Airport / Gare de Lyon.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "CDG Airport / Gare de Lyon",
+        "npcLine": "Où allez-vous aujourd'hui ?",
+        "npcTranslation": "Where are you going today?",
+        "userTask": "Respond appropriately in French to: 'Where are you going today?'",
+        "expectedResponse": "Un billet aller-retour pour Lyon, s'il vous plaît",
+        "acceptableVariations": [
+          "Un billet pour Lyon"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_17",
+    "title": "Level 2 French — Unit 17: Medical & Emergency Help",
+    "description": "Master practical conversational dialogues in Pharmacy / Hospital.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Pharmacy / Hospital",
+        "npcLine": "Qu'est-ce qui ne va pas ?",
+        "npcTranslation": "What is wrong?",
+        "userTask": "Respond appropriately in French to: 'What is wrong?'",
+        "expectedResponse": "J'ai mal à la tête et besoin d'un médecin",
+        "acceptableVariations": [
+          "Jai mal a la tete"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_18",
+    "title": "Level 2 French — Unit 18: Shopping & Price Negotiation",
+    "description": "Master practical conversational dialogues in Paris Boutique.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Boutique",
+        "npcLine": "Puis-je vous aider ?",
+        "npcTranslation": "May I help you?",
+        "userTask": "Respond appropriately in French to: 'May I help you?'",
+        "expectedResponse": "Combien coûte cette veste en cuir ?",
+        "acceptableVariations": "Combien coute cette veste"
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_19",
+    "title": "Level 2 French — Unit 19: Socializing & Making Friends",
+    "description": "Master practical conversational dialogues in Café Terrace.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Café Terrace",
+        "npcLine": "D'où venez-vous ?",
+        "npcTranslation": "Where do you come from?",
+        "userTask": "Respond appropriately in French to: 'Where do you come from?'",
+        "expectedResponse": "Je viens des États-Unis et j'apprends le français",
+        "acceptableVariations": [
+          "Je viens des Etats Unis"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_20",
+    "title": "Level 2 French — Unit 20: Work & Professional Meetings",
+    "description": "Master practical conversational dialogues in Office Meeting.",
+    "difficulty": "Fluency",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Office Meeting",
+        "npcLine": "Bienvenue à la réunion. Commençons.",
+        "npcTranslation": "Welcome to the meeting. Let us begin.",
+        "userTask": "Respond appropriately in French to: 'Welcome to the meeting. Let us begin.'",
+        "expectedResponse": "Merci, je suis prêt à présenter le projet",
+        "acceptableVariations": [
+          "Merci je suis pret"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_21",
+    "title": "Level 3 French — Unit 21: Polite Greetings & Language Barriers",
+    "description": "Master practical conversational dialogues in San Juan / Paris Street.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "San Juan / Paris Street",
+        "npcLine": "Bonjour monsieur, vous désirez ?",
+        "npcTranslation": "Hello sir, what would you like?",
+        "userTask": "Respond appropriately in French to: 'Hello sir, what would you like?'",
+        "expectedResponse": "Un café, s'il vous plaît",
+        "acceptableVariations": [
+          "Un cafe s'il vous plait"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_22",
+    "title": "Level 3 French — Unit 22: Directions & Navigation",
+    "description": "Master practical conversational dialogues in Paris Metro.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Metro",
+        "npcLine": "Pardon, la station de métro est où ?",
+        "npcTranslation": "Excuse me, where is the metro station?",
+        "userTask": "Respond appropriately in French to: 'Excuse me, where is the metro station?'",
+        "expectedResponse": "Allez tout droit puis tournez à droite",
+        "acceptableVariations": [
+          "Tout droit puis a droite"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_23",
+    "title": "Level 3 French — Unit 23: Dining & Restaurant Ordering",
+    "description": "Master practical conversational dialogues in Parisian Bistro.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Parisian Bistro",
+        "npcLine": "Avez-vous une réservation pour ce soir ?",
+        "npcTranslation": "Do you have a reservation for tonight?",
+        "userTask": "Respond appropriately in French to: 'Do you have a reservation for tonight?'",
+        "expectedResponse": "Oui, j'ai une réservation pour deux",
+        "acceptableVariations": [
+          "Oui jai une reservation pour deux"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_24",
+    "title": "Level 3 French — Unit 24: Hotel Check-In & Accommodations",
+    "description": "Master practical conversational dialogues in Nice Hotel.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Nice Hotel",
+        "npcLine": "Bienvenue ! Quel est votre nom ?",
+        "npcTranslation": "Welcome! What is your name?",
+        "userTask": "Respond appropriately in French to: 'Welcome! What is your name?'",
+        "expectedResponse": "Mon nom est Smith, voici mon passeport",
+        "acceptableVariations": [
+          "Mon nom est Smith"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_25",
+    "title": "Level 3 French — Unit 25: Bakery & Grocery Shopping",
+    "description": "Master practical conversational dialogues in Paris Bakery.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Bakery",
+        "npcLine": "Bonjour ! Que voulez-vous aujourd'hui ?",
+        "npcTranslation": "Hello! What would you like today?",
+        "userTask": "Respond appropriately in French to: 'Hello! What would you like today?'",
+        "expectedResponse": "Deux croissants et une baguette, s'il vous plaît",
+        "acceptableVariations": [
+          "Deux croissants et une baguette"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_26",
+    "title": "Level 3 French — Unit 26: Train & Airport Transit",
+    "description": "Master practical conversational dialogues in CDG Airport / Gare de Lyon.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "CDG Airport / Gare de Lyon",
+        "npcLine": "Où allez-vous aujourd'hui ?",
+        "npcTranslation": "Where are you going today?",
+        "userTask": "Respond appropriately in French to: 'Where are you going today?'",
+        "expectedResponse": "Un billet aller-retour pour Lyon, s'il vous plaît",
+        "acceptableVariations": [
+          "Un billet pour Lyon"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_27",
+    "title": "Level 3 French — Unit 27: Medical & Emergency Help",
+    "description": "Master practical conversational dialogues in Pharmacy / Hospital.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Pharmacy / Hospital",
+        "npcLine": "Qu'est-ce qui ne va pas ?",
+        "npcTranslation": "What is wrong?",
+        "userTask": "Respond appropriately in French to: 'What is wrong?'",
+        "expectedResponse": "J'ai mal à la tête et besoin d'un médecin",
+        "acceptableVariations": [
+          "Jai mal a la tete"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_28",
+    "title": "Level 3 French — Unit 28: Shopping & Price Negotiation",
+    "description": "Master practical conversational dialogues in Paris Boutique.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Paris Boutique",
+        "npcLine": "Puis-je vous aider ?",
+        "npcTranslation": "May I help you?",
+        "userTask": "Respond appropriately in French to: 'May I help you?'",
+        "expectedResponse": "Combien coûte cette veste en cuir ?",
+        "acceptableVariations": "Combien coute cette veste"
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_29",
+    "title": "Level 3 French — Unit 29: Socializing & Making Friends",
+    "description": "Master practical conversational dialogues in Café Terrace.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Café Terrace",
+        "npcLine": "D'où venez-vous ?",
+        "npcTranslation": "Where do you come from?",
+        "userTask": "Respond appropriately in French to: 'Where do you come from?'",
+        "expectedResponse": "Je viens des États-Unis et j'apprends le français",
+        "acceptableVariations": [
+          "Je viens des Etats Unis"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr_unit_30",
+    "title": "Level 3 French — Unit 30: Work & Professional Meetings",
+    "description": "Master practical conversational dialogues in Office Meeting.",
+    "difficulty": "Intermediate",
+    "steps": [
+      {
+        "step": 1,
+        "npcSpeaker": "Office Meeting",
+        "npcLine": "Bienvenue à la réunion. Commençons.",
+        "npcTranslation": "Welcome to the meeting. Let us begin.",
+        "userTask": "Respond appropriately in French to: 'Welcome to the meeting. Let us begin.'",
+        "expectedResponse": "Merci, je suis prêt à présenter le projet",
+        "acceptableVariations": [
+          "Merci je suis pret"
+        ]
+      }
+    ]
+  }
+]

@@ -44,11 +44,19 @@
 
     <!-- Daily Streak & Goal Badge in Nav Actions -->
     <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+      <select id="language-course-select" onchange="if(window.DeckLoaderModule) window.DeckLoaderModule.loadLanguageCourse(this.value);" style="background: rgba(15, 23, 42, 0.9); border: 1px solid var(--accent-primary); color: #fff; padding: 0.35rem 0.7rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer;">
+        <option value="spanish">🇪🇸 Spanish Course</option>
+        <option value="french">🇫🇷 French Course</option>
+        <option value="german">🇩🇪 German Course</option>
+      </select>
+
+      <span class="badge badge-diff A1-Beginner" id="active-course-pill" style="font-size: 0.8rem;">🇪🇸 Spanish Course</span>
+
       <div id="daily-streak-badge" style="display: flex; align-items: center; gap: 0.35rem; background: rgba(234, 88, 12, 0.15); border: 1px solid rgba(234, 88, 12, 0.4); padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; color: #fb923c;" title="Daily Study Streak">
         <span>🔥</span> <span id="streak-count-val">1</span> Day Streak
       </div>
       <div class="nav-actions">
-        <button class="icon-btn" id="open-onboarding-btn" title="Change Learning Pace & Goal">
+        <button class="icon-btn" id="open-onboarding-btn" onclick="if(window.OnboardingModule && window.OnboardingModule.openOnboardingModal) { window.OnboardingModule.openOnboardingModal(); }" title="Change Language Course, Pace & Goal">
           <i class="fa-solid fa-sliders"></i>
         </button>
         <button class="icon-btn" id="audio-toggle-btn" title="Toggle Speech Audio">
@@ -65,7 +73,7 @@
   <main class="main-container">
 
     <!-- Category & Filter Controls Bar -->
-    <div style="display: flex; gap: 0.85rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 1.8rem; background: var(--bg-card); border: 1px solid var(--border-color); padding: 1rem 1.25rem; border-radius: 16px; min-width: 0;">
+    <div id="global-filter-bar" style="display: flex; gap: 0.85rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 1.8rem; background: var(--bg-card); border: 1px solid var(--border-color); padding: 1rem 1.25rem; border-radius: 16px; min-width: 0;">
       
       <!-- Category Dropdown Selector -->
       <div style="display: flex; align-items: center; gap: 0.6rem; flex: 1 1 280px; min-width: 0; max-width: 480px;">
@@ -420,7 +428,7 @@
     <section class="view" id="conjugation-view">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
-          <h2 style="font-family: var(--font-heading);">Spanish Verb Conjugation Trainer</h2>
+          <h2 style="font-family: var(--font-heading);" id="conj-main-title">Spanish Verb Conjugation Trainer</h2>
           <p style="font-size: 0.88rem; color: var(--text-muted);">Master essential fluency tenses (Presente, Pretérito, Imperfecto, Futuro & Condicional).</p>
         </div>
 
@@ -564,8 +572,8 @@
     <section class="view" id="stats-view">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
-          <h2 style="font-family: var(--font-heading);">Course Mastery & SRS Progress Map</h2>
-          <p style="font-size: 0.88rem; color: var(--text-muted);">Visual breakdown of your Spanish mastery across all levels, units, and skill modules.</p>
+          <h2 style="font-family: var(--font-heading);" id="progress-main-title">Spanish Course Mastery & SRS Progress Map</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Visual breakdown of your mastery across all levels, units, and skill modules.</p>
         </div>
         <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); padding: 0.6rem 1.2rem; border-radius: 14px; display: flex; align-items: center; gap: 0.8rem;">
           <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Course Mastery:</span>
@@ -663,17 +671,84 @@
         <i class="fa-solid fa-rotate"></i> Reset to Default Universal Spanish Deck
       </button>
     </div>
+  </div>
+
   <!-- FIRST-TIME AUTHENTIC ONBOARDING MODAL -->
   <div class="modal-overlay" id="onboarding-modal" style="z-index: 10000; background: rgba(10, 15, 30, 0.92); backdrop-filter: blur(12px);">
-    <div class="modal" style="max-width: 620px; border: 1px solid var(--accent-primary); box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);">
+    <div class="modal" style="max-width: 620px; border: 1px solid var(--accent-primary); box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); position: relative;">
       
-      <!-- Slide 1: Welcome & Goal Pacing Selection -->
+      <!-- Close X Button -->
+      <button class="icon-btn" id="close-onboarding-modal-btn" onclick="if(document.getElementById('onboarding-modal')) document.getElementById('onboarding-modal').style.setProperty('display','none','important');" style="position: absolute; top: 1.2rem; right: 1.2rem; z-index: 10; color: var(--text-muted);" title="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Slide 1: Welcome & Target Language Selection -->
       <div id="onboarding-slide-1" class="onboarding-slide" style="display: flex; flex-direction: column; gap: 1.2rem;">
         <div style="text-align: center;">
           <span class="badge badge-diff A1-Beginner" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;">👋 WELCOME TO SYSTEMALOGOS</span>
+          <h2 style="font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin: 0;">Select Your Target Language</h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.4rem;">
+            Choose the language course you want to master. You can switch courses anytime from the top header bar!
+          </p>
+        </div>
+
+        <!-- 3 Interactive Language Cards -->
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div class="lang-option-card active" data-lang="spanish" style="background: rgba(15, 23, 42, 0.8); border: 2px solid var(--accent-primary); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.4rem;">🇪🇸</span>
+                <strong style="font-size: 1.05rem; color: #fff;">Spanish Course (Universal)</strong>
+                <span class="badge badge-diff A1-Beginner" style="font-size: 0.7rem;">3,842 WORDS</span>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-secondary); margin: 0.3rem 0 0 0;">
+                Full 4-Level CEFR Curriculum • 30 Scenario Drills • 50 Verb Conjugation Matrices
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--accent-primary);"></i>
+          </div>
+
+          <div class="lang-option-card" data-lang="french" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.4rem;">🇫🇷</span>
+                <strong style="font-size: 1.05rem; color: #fff;">French Course (Core Curriculum)</strong>
+                <span class="badge badge-diff B1-Intermediate" style="font-size: 0.7rem;">CORE DECK</span>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
+                Essential French Vocabulary • Native French TTS Audio • Paris Scenario Drills
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
+          </div>
+
+          <div class="lang-option-card" data-lang="german" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.4rem;">🇩🇪</span>
+                <strong style="font-size: 1.05rem; color: #fff;">German Course (Core Curriculum)</strong>
+                <span class="badge badge-diff A2-Elementary" style="font-size: 0.7rem;">CORE DECK</span>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
+                Essential German Vocabulary • Native German TTS Audio • Berlin Scenario Drills
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="onboarding-next-1" style="font-size: 1rem; padding: 0.9rem; margin-top: 0.5rem;">
+          Continue to Goal Pacing <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Slide 2: Choose Goal Pacing -->
+      <div id="onboarding-slide-2" class="onboarding-slide" style="display: none; flex-direction: column; gap: 1.2rem;">
+        <div style="text-align: center;">
+          <span class="badge badge-diff A1-Beginner" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;">⚙️ DAILY PACING GOAL</span>
           <h2 style="font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin: 0;">Choose Your Learning Pace</h2>
           <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.4rem;">
-            Mastering our 3,842 Universal Spanish words gives you <strong>92%+ conversational comprehension</strong>. Choose your timeline:
+            Select your daily study volume to build consistent recall momentum:
           </p>
         </div>
 
@@ -687,7 +762,7 @@
                 <span class="badge badge-diff A1-Beginner" style="font-size: 0.7rem;">RECOMMENDED</span>
               </div>
               <p style="font-size: 0.83rem; color: var(--text-secondary); margin: 0.3rem 0 0 0;">
-                <strong>Fluent Vocabulary in 6 Months</strong> • ~15 mins/day • Best balance of speed & memory
+                <strong>Conversational Vocabulary in 6 Months</strong> • ~15 mins/day
               </p>
             </div>
             <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--accent-primary);"></i>
@@ -700,7 +775,7 @@
                 <strong style="font-size: 1.05rem; color: #fff;">Casual Pace (10 Words / day)</strong>
               </div>
               <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
-                <strong>Fluent Vocabulary in 1 Year</strong> • ~8 mins/day • Great for busy schedules
+                <strong>Conversational Vocabulary in 1 Year</strong> • ~8 mins/day
               </p>
             </div>
             <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
@@ -713,20 +788,20 @@
                 <strong style="font-size: 1.05rem; color: #fff;">Intensive Pace (30 Words / day)</strong>
               </div>
               <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
-                <strong>Fluent Vocabulary in 4 Months</strong> • ~25 mins/day • Rapid immersion pace
+                <strong>Conversational Vocabulary in 4 Months</strong> • ~25 mins/day
               </p>
             </div>
             <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
           </div>
         </div>
 
-        <button class="primary-btn" id="onboarding-next-1" style="font-size: 1rem; padding: 0.9rem; margin-top: 0.5rem;">
+        <button class="primary-btn" id="onboarding-next-2" style="font-size: 1rem; padding: 0.9rem; margin-top: 0.5rem;">
           Continue to Method Guidance <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
 
-      <!-- Slide 2: Real-World Practice & Scenario Audio Emphasis -->
-      <div id="onboarding-slide-2" class="onboarding-slide" style="display: none; flex-direction: column; gap: 1.2rem;">
+      <!-- Slide 3: Real-World Practice & Scenario Audio Emphasis -->
+      <div id="onboarding-slide-3" class="onboarding-slide" style="display: none; flex-direction: column; gap: 1.2rem;">
         <div style="text-align: center;">
           <span class="badge badge-diff B1-Intermediate" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;">🗣️ REAL-WORLD FLUENCY METHODOLOGY</span>
           <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: #fff; margin: 0;">How to Maximize Your Results</h2>
@@ -748,7 +823,7 @@
             <div>
               <strong style="color: #34d399; font-size: 1rem;">Pair Drills with Real-World Speaking</strong>
               <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;">
-                SystemaLogos equips you with 3,840 core words and grammar tenses. For complete fluency, practice speaking your daily learned words in real conversations!
+                SystemaLogos equips you with high-frequency core words and grammar tenses. For complete fluency, practice speaking your daily learned words in real conversations!
               </p>
             </div>
           </div>
@@ -763,10 +838,19 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-  <script src="deck_data.js?v=17"></script>
-  <script src="scenarios_data.js?v=17"></script>
-  <script src="conjugation_data.js?v=17"></script>
-  <script src="srs.js?v=17"></script>
-  <script type="module" src="js/main.js?v=17"></script>
+  <script src="deck_data.js?v=31"></script>
+  <script src="scenarios_data.js?v=31"></script>
+  <script src="conjugation_data.js?v=31"></script>
+  <script src="srs.js?v=31"></script>
+  <script src="js/audio.js?v=31"></script>
+  <script src="js/srs_engine.js?v=31"></script>
+  <script src="js/deck_loader.js?v=31"></script>
+  <script src="js/achievements.js?v=31"></script>
+  <script src="js/roadmap.js?v=31"></script>
+  <script src="js/onboarding.js?v=31"></script>
+  <script src="js/flashcard.js?v=31"></script>
+  <script src="js/scenario.js?v=31"></script>
+  <script src="js/conjugation.js?v=31"></script>
+  <script src="js/main.js?v=31"></script>
 </body>
 </html>
