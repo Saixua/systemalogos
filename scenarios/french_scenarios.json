@@ -7,7 +7,7 @@
     "steps": [
       {
         "step": 1,
-        "npcSpeaker": "San Juan / Paris Street",
+        "npcSpeaker": "Paris Street",
         "npcLine": "Bonjour monsieur, vous désirez ?",
         "npcTranslation": "Hello sir, what would you like?",
         "userTask": "Respond appropriately in French to: 'Hello sir, what would you like?'",
