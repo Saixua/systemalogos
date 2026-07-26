@@ -6,7 +6,8 @@
  * Purpose:
  *   Manages multi-language course switching (Spanish 🇪🇸, French 🇫🇷, German 🇩🇪),
  *   asynchronously lazy-loads active JSON deck files under /decks/, isolates SRS
- *   progress databases per language, and dispatches dynamic 'languageChanged' events.
+ *   progress databases per language, updates TTS accents dropdown, and dispatches
+ *   dynamic 'languageChanged' events.
  * ============================================================================
  */
 
@@ -109,6 +110,8 @@
     const select = document.getElementById('language-course-select');
     const conjTitle = document.getElementById('conj-main-title');
     const progressTitle = document.getElementById('progress-main-title');
+    const accentSelect = document.getElementById('accent-filter-select') || document.getElementById('accent-select');
+
     if (pill) {
       pill.innerHTML = `${config.flag} ${config.name} Course`;
     }
@@ -120,6 +123,26 @@
     }
     if (progressTitle) {
       progressTitle.textContent = `${config.flag} ${config.name} Course Mastery & SRS Progress Map`;
+    }
+
+    if (accentSelect) {
+      const accents = {
+        spanish: [
+          { val: 'es-MX', label: '🇲🇽 Latin America (Neutral)' },
+          { val: 'es-ES', label: '🇪🇸 Spain (Castellano)' }
+        ],
+        french: [
+          { val: 'fr-FR', label: '🇫🇷 France (Standard)' },
+          { val: 'fr-CA', label: '🇨🇦 Canada (Québécois)' }
+        ],
+        german: [
+          { val: 'de-DE', label: '🇩🇪 Germany (Standard)' },
+          { val: 'de-AT', label: '🇦🇹 Austria (Österreich)' }
+        ]
+      };
+      const list = accents[activeLanguage] || accents.spanish;
+      accentSelect.innerHTML = list.map(a => `<option value="${a.val}">${a.label}</option>`).join('');
+      accentSelect.value = config.ttsLang;
     }
   }
 

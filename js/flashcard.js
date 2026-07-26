@@ -72,7 +72,7 @@
     const currentCard = fcQueue[fcIndex];
 
     if (blindAudioMode) {
-      if (fcFrontText) fcFrontText.innerHTML = `<span style="color: var(--accent-cyan); font-size: 1.3rem; cursor: pointer;"><i class="fa-solid fa-headphones"></i> <em>[ 🎧 Click to Listen & Reveal Spanish ]</em></span>`;
+      if (fcFrontText) fcFrontText.innerHTML = `<span style="color: var(--accent-cyan); font-size: 1.3rem; cursor: pointer;"><i class="fa-solid fa-headphones"></i> <em>[ 🎧 Click to Listen & Reveal ]</em></span>`;
       if (fcFrontHint) fcFrontHint.innerHTML = `<i class="fa-solid fa-headphones"></i> Blind Listening Mode active — Listen first, then flip card!`;
       if (window.AudioModule && window.AudioModule.isSpeechEnabled()) {
         setTimeout(() => window.AudioModule.speakSpanish(currentCard.spanish, 'female'), 300);
@@ -83,7 +83,7 @@
     }
 
     if (fcBackText) fcBackText.textContent = currentCard.english;
-    if (fcBackSpanishRef) fcBackSpanishRef.textContent = `Spanish: ${currentCard.spanish}`;
+    if (fcBackSpanishRef) fcBackSpanishRef.textContent = `Target Word: ${currentCard.spanish}`;
 
     if (exampleEsEl) exampleEsEl.textContent = `"${currentCard.exampleEs || currentCard.spanish}"`;
     if (exampleEnEl) exampleEnEl.textContent = `"${currentCard.exampleEn || currentCard.english}"`;
@@ -122,34 +122,30 @@
     if (fcQueue.length === 0 || fcIndex >= fcQueue.length) return;
 
     const currentCard = fcQueue[fcIndex];
-    if (window.SRSModule) {
-      window.SRSModule.srsEngine.processReview(currentCard.id, grade);
+    try {
+      if (window.SRSModule) {
+        window.SRSModule.processReview(currentCard.id, grade);
+      }
+    } catch (e) {
+      console.warn("SRS processReview error:", e);
     }
 
     fcSessionStudied++;
-    const onConfetti = window.OnboardingModule ? window.OnboardingModule.triggerConfetti : null;
-    if (window.AchievementsModule) {
-      window.AchievementsModule.registerCardStudied(onUpdateUI, onConfetti);
-    }
+    try {
+      const onConfetti = window.OnboardingModule ? window.OnboardingModule.triggerConfetti : null;
+      if (window.AchievementsModule) {
+        window.AchievementsModule.registerCardStudied(onUpdateUI, onConfetti);
+      }
+    } catch (e) {}
 
     if (grade === 0) {
-      const flashcard = document.getElementById('flashcard');
-      if (flashcard && !flashcard.classList.contains('flipped')) {
-        flashcard.classList.add('flipped');
-      }
-
-      setTimeout(() => {
-        const insertOffset = Math.floor(Math.random() * 3) + 3; // 3 to 5 cards deeper
-        const insertPos = Math.min(fcQueue.length, fcIndex + insertOffset);
-        fcQueue.splice(insertPos, 0, currentCard);
-
-        fcIndex++;
-        renderCurrentFlashcard();
-      }, 1300);
-    } else {
-      fcIndex++;
-      renderCurrentFlashcard();
+      const insertOffset = Math.floor(Math.random() * 3) + 3;
+      const insertPos = Math.min(fcQueue.length, fcIndex + insertOffset);
+      fcQueue.splice(insertPos, 0, currentCard);
     }
+
+    fcIndex++;
+    renderCurrentFlashcard();
   }
 
   window.FlashcardModule = {

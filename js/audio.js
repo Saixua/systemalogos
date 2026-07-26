@@ -5,7 +5,8 @@
  * ============================================================================
  * Purpose:
  *   Handles Web Speech Synthesis (TTS) voice audio playback, accent selection
- *   (e.g., es-MX, fr-FR, de-DE), speed rate adjustment, and Web Audio sound FX.
+ *   (e.g., es-MX, es-ES, fr-FR, fr-CA, de-DE, de-AT), speed rate adjustment,
+ *   and Web Audio sound FX.
  * ============================================================================
  */
 
@@ -65,13 +66,16 @@
     utterance.rate = speechRate;
 
     const voices = window.speechSynthesis.getVoices();
-    const targetLangPrefix = speechLang.split('-')[0];
+    const targetLangPrefix = speechLang.split('-')[0].toLowerCase();
+    const exactLang = speechLang.toLowerCase();
 
-    const matchVoice = voices.find(v => v.lang.startsWith(targetLangPrefix)) ||
-                       voices.find(v => v.lang.includes(targetLangPrefix));
+    const matchVoice = voices.find(v => v.lang.toLowerCase() === exactLang) ||
+                       voices.find(v => v.lang.toLowerCase().replace('_', '-').startsWith(exactLang)) ||
+                       voices.find(v => v.lang.toLowerCase().startsWith(targetLangPrefix));
 
     if (matchVoice) {
       utterance.voice = matchVoice;
+      utterance.lang = matchVoice.lang;
     } else {
       utterance.lang = speechLang;
     }

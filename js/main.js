@@ -166,6 +166,15 @@
       });
     }
 
+    const accentSelect = document.getElementById('accent-filter-select');
+    if (accentSelect) {
+      accentSelect.addEventListener('change', (e) => {
+        if (window.AudioModule) {
+          window.AudioModule.setTargetLanguage(e.target.value);
+        }
+      });
+    }
+
     const flashcard = document.getElementById('flashcard');
     if (flashcard) {
       flashcard.addEventListener('click', (e) => {
@@ -204,7 +213,7 @@
       });
     }
 
-    const scenarioSendBtn = document.getElementById('scenario-send-btn');
+    const scenarioSendBtn = document.getElementById('scenario-submit-btn') || document.getElementById('scenario-send-btn');
     const scenarioTypeInput = document.getElementById('scenario-type-input');
 
     if (scenarioSendBtn && scenarioTypeInput) {
@@ -223,6 +232,16 @@
             window.ScenarioModule.submitScenarioResponse(val);
             scenarioTypeInput.value = '';
           }
+        }
+      });
+    }
+
+    // "I'm stuck (Show 4 Choices)" button
+    const stuckBtn = document.getElementById('scenario-stuck-btn');
+    if (stuckBtn) {
+      stuckBtn.addEventListener('click', () => {
+        if (window.ScenarioModule && window.ScenarioModule.showFourChoices) {
+          window.ScenarioModule.showFourChoices();
         }
       });
     }

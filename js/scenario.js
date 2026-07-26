@@ -48,8 +48,10 @@
     }
 
     select.innerHTML = allScenarios.map((sc, idx) => {
-      const diffLabel = sc.difficulty ? ` (${sc.difficulty})` : '';
-      return `<option value="${idx}">Scenario ${idx + 1}: ${sc.title}${diffLabel}</option>`;
+      // Extract clean unit label: strip "Level X Language — " prefix if present
+      let label = sc.title || `Scenario ${idx + 1}`;
+      label = label.replace(/^Level\s+\d+\s+\w+\s*[-—–]\s*/i, '');
+      return `<option value="${idx}">${label}</option>`;
     }).join('');
 
     select.value = currentScenarioIdx;
@@ -73,6 +75,9 @@
     const npcLine = document.getElementById('scenario-npc-line');
     const npcTranslation = document.getElementById('scenario-npc-translation');
     const userTask = document.getElementById('scenario-user-task');
+    const typeInput = document.getElementById('scenario-type-input');
+    const optionsContainer = document.getElementById('scenario-options-container');
+    const feedbackEl = document.getElementById('scenario-feedback-box');
 
     const spanishText = step.npcLine || step.npcSpanish || '';
     const translationText = step.npcTranslation || step.npcEnglish || '';
@@ -81,13 +86,96 @@
     if (descEl) descEl.textContent = currentScenario.description || '';
     if (stepBadge) stepBadge.textContent = `Step ${currentScenarioStepIdx + 1} of ${currentScenario.steps.length}`;
     if (npcSpeaker) npcSpeaker.textContent = step.npcSpeaker || 'Scenario Setting';
-    if (npcLine) npcLine.textContent = `"${spanishText}"`;
+
+    // Handle bracketed narrative text (scene-setting) vs actual dialogue
+    if (npcLine) {
+      const isBracketed = spanishText.startsWith('[');
+      if (isBracketed) {
+        // Strip brackets, display as italic scene description
+        const cleanText = spanishText.replace(/^\[|\]$/g, '');
+        npcLine.innerHTML = `<em style="font-size: 0.95rem; color: var(--text-muted); font-weight: 400; font-style: italic;">${cleanText}</em>`;
+      } else {
+        npcLine.textContent = `"${spanishText}"`;
+      }
+    }
     if (npcTranslation) npcTranslation.textContent = `"${translationText}"`;
     if (userTask) userTask.textContent = taskText;
 
-    if (window.AudioModule && window.AudioModule.isSpeechEnabled() && spanishText && !spanishText.startsWith('[')) {
+    // Update placeholder and clear input for active language
+    const activeLang = localStorage.getItem('systemalogos_active_language') || 'spanish';
+    const langNames = { spanish: 'Spanish', french: 'French', german: 'German' };
+    const langName = langNames[activeLang] || 'the target language';
+    if (typeInput) {
+      typeInput.value = '';
+      typeInput.placeholder = `Type or speak response in ${langName}...`;
+    }
+
+    // Hide 4-choice options and feedback on new step
+    if (optionsContainer) optionsContainer.style.display = 'none';
+    if (feedbackEl) feedbackEl.style.display = 'none';
+
+    // Only auto-speak when Scenario Drills view is actually visible on screen
+    const scenarioView = document.getElementById('scenario-view');
+    const isVisible = scenarioView && scenarioView.classList.contains('active');
+    if (isVisible && window.AudioModule && window.AudioModule.isSpeechEnabled() && spanishText && !spanishText.startsWith('[')) {
       setTimeout(() => window.AudioModule.speakSpanish(spanishText, 'female'), 200);
     }
+  }
+
+  function showFourChoices() {
+    if (!allScenarios || allScenarios.length === 0) return;
+    const currentScenario = allScenarios[currentScenarioIdx];
+    if (!currentScenario || !currentScenario.steps) return;
+
+    const step = currentScenario.steps[currentScenarioStepIdx];
+    const correctAnswer = step.expectedResponse || '';
+    const optionsContainer = document.getElementById('scenario-options-container');
+    if (!optionsContainer) return;
+
+    let allOptions = [];
+
+    // Use built-in options from data if available (Spanish scenarios have these)
+    if (step.options && step.options.length >= 4) {
+      allOptions = step.options.map(o => o.text);
+    } else {
+      // Generate options dynamically for languages without built-in options
+      const wrongAnswers = [];
+      for (let i = 0; i < allScenarios.length && wrongAnswers.length < 3; i++) {
+        if (i === currentScenarioIdx) continue;
+        const otherScenario = allScenarios[i];
+        if (otherScenario && otherScenario.steps && otherScenario.steps.length > 0) {
+          const otherStep = otherScenario.steps[0];
+          const otherResp = otherStep.expectedResponse || '';
+          if (otherResp && otherResp !== correctAnswer && !wrongAnswers.includes(otherResp)) {
+            wrongAnswers.push(otherResp);
+          }
+        }
+      }
+      while (wrongAnswers.length < 3) wrongAnswers.push('...');
+
+      allOptions = [correctAnswer, ...wrongAnswers];
+    }
+
+    // Shuffle
+    for (let i = allOptions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+    }
+
+    optionsContainer.style.display = 'grid';
+    optionsContainer.innerHTML = allOptions.map(opt => `
+      <button class="primary-btn quiz-option-btn" style="padding: 1rem; font-size: 0.95rem; text-align: center; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; cursor: pointer; border-radius: 14px;"
+        onclick="(function(btn){
+          var correct = ${JSON.stringify(correctAnswer)};
+          if(btn.textContent.trim() === correct.trim()){
+            btn.style.background='rgba(52,211,153,0.25)'; btn.style.borderColor='#34d399'; btn.style.color='#34d399';
+            setTimeout(function(){ if(window.ScenarioModule) window.ScenarioModule.submitScenarioResponse(correct); }, 800);
+          } else {
+            btn.style.background='rgba(239,68,68,0.2)'; btn.style.borderColor='#f87171'; btn.style.color='#f87171';
+          }
+        })(this)"
+      >${opt}</button>
+    `).join('');
   }
 
   function submitScenarioResponse(userText) {
@@ -148,6 +236,8 @@
     loadScenariosForLanguage,
     populateScenarioSelect,
     renderCurrentScenarioStep,
-    submitScenarioResponse
+    submitScenarioResponse,
+    showFourChoices
   };
 })(window);
+
