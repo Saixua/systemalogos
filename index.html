@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>LingoPulse — Native Spanish Mastery & Active Recall</title>
+  <title>SystemaLogos — Algorithmic Language & Spaced Repetition Engine</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,11 +15,14 @@
       <div class="brand-icon">
         <i class="fa-solid fa-bolt-lightning"></i>
       </div>
-      <span>LingoPulse</span>
+      <span>SystemaLogos</span>
     </div>
 
     <div class="nav-tabs">
-      <button class="nav-btn active" data-view="flashcard-view">
+      <button class="nav-btn active" data-view="home-view">
+        <i class="fa-solid fa-house"></i> Home
+      </button>
+      <button class="nav-btn" data-view="flashcard-view">
         <i class="fa-solid fa-clone"></i> Flashcards
       </button>
       <button class="nav-btn" data-view="quiz-view">
@@ -34,6 +37,9 @@
       <button class="nav-btn" data-view="stats-view">
         <i class="fa-solid fa-chart-line"></i> Progress
       </button>
+      <button class="nav-btn" data-view="achievements-view">
+        <i class="fa-solid fa-trophy"></i> Achievements
+      </button>
     </div>
 
     <!-- Daily Streak & Goal Badge in Nav Actions -->
@@ -42,6 +48,9 @@
         <span>🔥</span> <span id="streak-count-val">1</span> Day Streak
       </div>
       <div class="nav-actions">
+        <button class="icon-btn" id="open-onboarding-btn" title="Change Learning Pace & Goal">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
         <button class="icon-btn" id="audio-toggle-btn" title="Toggle Speech Audio">
           <i class="fa-solid fa-volume-high"></i>
         </button>
@@ -100,17 +109,117 @@
             <option value="es-ES">🇪🇸 Spain (Castellano)</option>
           </select>
         </div>
-
-        <!-- Regionalism Toggle -->
-        <label style="display: flex; align-items: center; gap: 0.5rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 0.5rem 0.85rem; border-radius: 12px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--text-primary); white-space: nowrap;">
-          <input type="checkbox" id="regional-toggle-checkbox" style="cursor: pointer; accent-color: var(--accent-primary);">
-          <span>Include Regionalisms</span>
-        </label>
       </div>
     </div>
 
+    <!-- VIEW 0: HOME / DASHBOARD & LEVEL PROGRESSION -->
+    <section class="view active" id="home-view">
+      
+      <!-- Daily Objective & Start Card -->
+      <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.1)); border: 1px solid var(--accent-primary); border-radius: 20px; padding: 1.8rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
+          <div>
+            <span class="badge badge-diff A1-Beginner" style="font-size: 0.78rem;">🔥 TODAY'S MISSION</span>
+            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: #fff; margin-top: 0.3rem;">Daily Fluency Objective</h2>
+            <p style="font-size: 0.92rem; color: var(--text-secondary);">Complete 20 Spaced Repetition cards & 1 Conversational Scenario drill.</p>
+          </div>
+          <button class="primary-btn" id="start-daily-session-btn" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan)); font-size: 1.05rem; padding: 0.9rem 1.8rem;">
+            <i class="fa-solid fa-play"></i> Continue Study Session
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 1.5rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 220px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">
+              <span>Daily Goal Progress</span>
+              <span id="home-goal-pct">0%</span>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.6); border-radius: 10px; height: 10px; overflow: hidden;">
+              <div id="home-goal-bar" style="background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan)); width: 0%; height: 100%; transition: width 0.3s ease;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Structured Level Progression Roadmap -->
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="font-family: var(--font-heading);">Structured Learning Path</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">Master bite-sized levels progressively. Higher levels unlock as you achieve 80%+ SRS recall!</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;" id="levels-roadmap-grid">
+        
+        <!-- LEVEL 1 -->
+        <div id="level-card-1" style="background: var(--bg-card); border: 1px solid rgba(52, 211, 153, 0.4); padding: 1.5rem; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-diff A1-Beginner" id="level-badge-1">🟢 Level 1 • Unlocked</span>
+              <i class="fa-solid fa-circle-check" style="color: #34d399; font-size: 1.2rem;"></i>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-top: 0.6rem;">Survival Foundation</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Top 10 Essential Verbs (Present Tense) • 50 Survival Words • Scenarios 1–5</p>
+          </div>
+          <button class="primary-btn level-select-btn" id="level-btn-1" data-level="A1 Beginner" style="font-size: 0.88rem; padding: 0.6rem 1.2rem; width: 100%;">
+            <i class="fa-solid fa-graduation-cap"></i> Practice Level 1
+          </button>
+        </div>
+
+        <!-- LEVEL 2 -->
+        <div id="level-card-2" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-diff A2-Elementary" id="level-badge-2">🔒 Level 2 • Locked</span>
+              <i id="level-icon-2" class="fa-solid fa-lock" style="color: var(--text-muted); font-size: 1.1rem;"></i>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-top: 0.6rem;">Everyday Fluency</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Regular -AR Verbs • 100% Obvious Cognates • Scenarios 6–10</p>
+            <div id="level-progress-box-2" style="margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-muted);">
+              <span>Unlocks at 80% Level 1 Recall Mastery</span>
+              <div style="background: rgba(15, 23, 42, 0.6); border-radius: 6px; height: 6px; overflow: hidden; width: 100%; margin-top: 0.3rem;">
+                <div id="level-progress-bar-2" style="background: var(--accent-primary); width: 0%; height: 100%; transition: width 0.3s ease;"></div>
+              </div>
+            </div>
+          </div>
+          <button class="primary-btn level-select-btn" id="level-btn-2" data-level="A2 Elementary" style="font-size: 0.88rem; padding: 0.6rem 1.2rem; width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <i class="fa-solid fa-graduation-cap"></i> Practice Level 2
+          </button>
+        </div>
+
+        <!-- LEVEL 3 -->
+        <div id="level-card-3" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; opacity: 0.85;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-diff B1-Intermediate" id="level-badge-3">🔒 Level 3 • Locked</span>
+              <i id="level-icon-3" class="fa-solid fa-lock" style="color: var(--text-muted); font-size: 1.1rem;"></i>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-top: 0.6rem;">Past Stories</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Pretérito Past Tense • -ER/-IR Verbs • Scenarios 11–20</p>
+          </div>
+          <button class="primary-btn level-select-btn" id="level-btn-3" data-level="B1 Intermediate" style="font-size: 0.88rem; padding: 0.6rem 1.2rem; width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <i class="fa-solid fa-graduation-cap"></i> Practice Level 3
+          </button>
+        </div>
+
+        <!-- LEVEL 4 -->
+        <div id="level-card-4" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; opacity: 0.85;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge badge-diff A1-Beginner" id="level-badge-4">🔒 Level 4 • Locked</span>
+              <i id="level-icon-4" class="fa-solid fa-lock" style="color: var(--text-muted); font-size: 1.1rem;"></i>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-top: 0.6rem;">Conversational Master</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Future & Conditional Tenses • False Cognate Traps • Scenarios 21–30</p>
+          </div>
+          <button class="primary-btn level-select-btn" id="level-btn-4" data-level="ALL" style="font-size: 0.88rem; padding: 0.6rem 1.2rem; width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <i class="fa-solid fa-graduation-cap"></i> Practice All Levels
+          </button>
+        </div>
+
+      </div>
+    </section>
+
     <!-- VIEW 1: FLASHCARDS -->
-    <section class="view active" id="flashcard-view">
+    <section class="view" id="flashcard-view">
       <div class="study-header">
         <div class="study-stats">
           <div class="stat-badge">
@@ -140,7 +249,6 @@
             <div class="card-header-tags">
               <span class="badge badge-cat" id="fc-category-tag">Category</span>
               <span class="badge badge-diff" id="fc-diff-tag">A1 Beginner</span>
-              <span class="badge badge-type" id="fc-type-tag">Universal</span>
             </div>
             <div class="card-body">
               <h2 class="word-target" id="fc-front-text">Cargando...</h2>
@@ -156,38 +264,39 @@
           <!-- Card Back -->
           <div class="card-face card-back">
             <div class="card-header-tags">
-              <span class="badge badge-cat" id="fc-back-category-tag">Translation</span>
+              <span class="badge badge-cat" id="fc-back-category-tag">Category</span>
               <span class="badge badge-diff" id="fc-back-diff-tag">A1 Beginner</span>
-              <span class="badge badge-type" id="fc-back-type-tag">English</span>
             </div>
             <div class="card-body">
               <h2 class="word-translation" id="fc-back-text">Translation</h2>
               <p style="font-size: 0.95rem; color: var(--text-secondary);" id="fc-back-spanish-ref">Spanish Ref</p>
+              
+              <!-- Contextual Example Sentence Card -->
+              <div id="fc-example-box" style="margin-top: 1.2rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 14px; padding: 0.9rem 1.1rem; text-align: left; display: flex; flex-direction: column; gap: 0.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-cyan); letter-spacing: 0.5px; text-transform: uppercase;">CONTEXTUAL USAGE SENTENCE</span>
+                  <button class="audio-btn" id="fc-example-audio-btn" style="width: 28px; height: 28px; font-size: 0.78rem;" title="Listen to Example Sentence">
+                    <i class="fa-solid fa-volume-high"></i>
+                  </button>
+                </div>
+                <p style="font-size: 1rem; color: #fff; font-weight: 600; margin: 0;" id="fc-example-es">"Cargando ejemplo..."</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin: 0;" id="fc-example-en">"Loading example..."</p>
+              </div>
             </div>
             <div class="card-footer-hint">
-              Rate your recall quality below (1-4)
+              <i class="fa-solid fa-hand-pointer"></i> Swipe ← (Missed) | Swipe → (Got It!)
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SRS Rating Bar (Shown when flipped) -->
-      <div class="srs-bar" id="srs-rating-bar">
-        <button class="srs-btn srs-again" data-grade="0">
-          <span class="srs-btn-title"><i class="fa-solid fa-rotate-left"></i> Again</span>
-          <span class="srs-btn-time">&lt; 1m (Key 1)</span>
+      <!-- Binary Pass / Fail Control Bar (Swipe Left / Right or Arrow Keys) -->
+      <div class="srs-bar" id="srs-rating-bar" style="display: flex; gap: 1rem; width: 100%; max-width: 580px; margin: 0 auto;">
+        <button class="srs-btn srs-again" id="srs-fail-btn" data-grade="0" style="flex: 1; padding: 0.9rem; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; border-radius: 14px; font-weight: 700; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; cursor: pointer; transition: all 0.2s ease;">
+          <i class="fa-solid fa-arrow-left"></i> Missed
         </button>
-        <button class="srs-btn srs-hard" data-grade="3">
-          <span class="srs-btn-title"><i class="fa-solid fa-brain"></i> Hard</span>
-          <span class="srs-btn-time">12h (Key 2)</span>
-        </button>
-        <button class="srs-btn srs-good" data-grade="4">
-          <span class="srs-btn-title"><i class="fa-solid fa-thumbs-up"></i> Good</span>
-          <span class="srs-btn-time">1d (Key 3)</span>
-        </button>
-        <button class="srs-btn srs-easy" data-grade="5">
-          <span class="srs-btn-title"><i class="fa-solid fa-star"></i> Easy</span>
-          <span class="srs-btn-time">3d (Key 4)</span>
+        <button class="srs-btn srs-easy" id="srs-pass-btn" data-grade="4" style="flex: 1; padding: 0.9rem; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.4); color: #34d399; border-radius: 14px; font-weight: 700; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; cursor: pointer; transition: all 0.2s ease;">
+          Got It! <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </section>
@@ -312,10 +421,20 @@
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
           <h2 style="font-family: var(--font-heading);">Spanish Verb Conjugation Trainer</h2>
-          <p style="font-size: 0.88rem; color: var(--text-muted);">Master essential fluency tenses (Presente, Pretérito, Imperfecto & Subjuntivo).</p>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Master essential fluency tenses (Presente, Pretérito, Imperfecto, Futuro & Condicional).</p>
         </div>
 
-        <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <!-- Conjugation Mode Switcher -->
+          <div style="display: flex; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.25rem; border-radius: 12px;">
+            <button id="conj-mode-side-btn" class="active" style="background: var(--accent-primary); color: #fff; border: none; padding: 0.45rem 0.85rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
+              <i class="fa-solid fa-book-open"></i> Reference & Side Drill
+            </button>
+            <button id="conj-mode-flashcard-btn" style="background: transparent; color: var(--text-muted); border: none; padding: 0.45rem 0.85rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
+              <i class="fa-solid fa-layer-group"></i> 🎴 Blind Flashcard Drill
+            </button>
+          </div>
+
           <!-- Verb Selector -->
           <select id="conj-verb-select" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 0.6rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer;">
             <!-- Verbs populate dynamically -->
@@ -326,13 +445,14 @@
             <option value="presente">Presente (Present)</option>
             <option value="pretérito">Pretérito (Completed Past)</option>
             <option value="imperfecto">Imperfecto (Habitual Past)</option>
-            <option value="subjuntivo">Subjuntivo (Present Subjunctive)</option>
+            <option value="futuro">Futuro (Future)</option>
+            <option value="condicional">Condicional (Conditional)</option>
           </select>
         </div>
       </div>
 
-      <!-- Conjugation Table & 4-Choice Drill Grid -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="mobile-grid-stack">
+      <!-- MODE 1: Side-by-Side Table & Drill Grid -->
+      <div id="conj-side-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="mobile-grid-stack">
         
         <!-- Conjugation Table Card -->
         <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem;">
@@ -372,27 +492,120 @@
           <div id="conj-drill-feedback" style="display: none; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); padding: 1rem; border-radius: 12px; font-size: 0.88rem; color: #34d399;">
             <!-- Explanation renders here -->
           </div>
+        </div>
 
-          <button class="primary-btn" id="conj-next-drill-btn" style="display: none; width: 100%; justify-content: center;">
-            <i class="fa-solid fa-arrow-right"></i> Next Conjugation Drill
-          </button>
+      </div>
+
+      <!-- MODE 2: Blind Conjugation Flashcard Drill (No Cheat Sheet) -->
+      <div id="conj-blind-container" style="display: none; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; max-width: 680px; margin: 0 auto;">
+        
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); border: 1px solid var(--border-color); padding: 0.8rem 1.2rem; border-radius: 14px;">
+          <span class="badge badge-diff" style="background: rgba(234, 88, 12, 0.2); color: #fb923c;">🎴 Blind Flashcard Drill (No Cheat Sheet)</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);" id="conj-blind-score">Score: 0 / 0</span>
+        </div>
+
+        <!-- 3D Interactive Conjugation Flashcard Card -->
+        <div class="flashcard-container" id="conj-flashcard-container" style="width: 100%; height: 380px;">
+          <div class="flashcard" id="conj-flashcard">
+            
+            <!-- FRONT OF CONJUGATION CARD -->
+            <div class="card-face card-front" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge badge-cat" id="conj-blind-type-badge">-ar regular</span>
+                <span class="badge badge-diff" id="conj-blind-tense-badge">Presente</span>
+              </div>
+
+              <div style="text-align: center; margin: 0.5rem 0;">
+                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;" id="conj-blind-pronoun-tag">Pronoun: Yo (I)</span>
+                <h2 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--accent-primary); margin-top: 0.2rem;" id="conj-blind-infinitive">HABLAR</h2>
+              </div>
+
+              <!-- 4-Choice Option Buttons directly on the front -->
+              <div class="quiz-options-grid" id="conj-blind-options-container" style="grid-template-columns: 1fr 1fr; gap: 0.6rem; width: 100%;">
+                <!-- 4 Options render dynamically -->
+              </div>
+
+              <div id="conj-blind-feedback" style="display: none; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); padding: 0.6rem 0.8rem; border-radius: 10px; font-size: 0.82rem; color: #34d399; text-align: center; margin-top: 0.4rem;">
+                <!-- Feedback renders here -->
+              </div>
+
+              <div class="card-footer-hint" style="margin-top: 0.4rem;">
+                <i class="fa-solid fa-hand-pointer"></i> Click card or press <kbd>Space</kbd> to flip for answer breakdown
+              </div>
+            </div>
+
+            <!-- BACK OF CONJUGATION CARD -->
+            <div class="card-face card-back" style="padding: 1.8rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge badge-cat" id="conj-back-verb-tag">Hablar</span>
+                <span class="badge badge-diff">Conjugation Answer</span>
+              </div>
+
+              <div style="text-align: center; margin: 1rem 0;">
+                <h2 style="font-family: var(--font-heading); font-size: 2.4rem; color: #34d399;" id="conj-back-target-word">hablo</h2>
+                <p style="font-size: 1.1rem; color: var(--text-primary); margin-top: 0.3rem;" id="conj-back-meaning">"I speak / I am speaking"</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;" id="conj-back-explanation">Verb: hablar (to speak) • Pronoun: Yo (I) • Tense: Presente</p>
+              </div>
+
+              <div style="display: flex; justify-content: center; width: 100%;">
+                <button class="primary-btn" id="conj-blind-next-btn" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan)); font-size: 0.95rem; padding: 0.7rem 1.5rem;">
+                  <i class="fa-solid fa-arrow-right"></i> Next Conjugation Flashcard
+                </button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- VIEW 5: PROGRESS & STATS DASHBOARD -->
+    <!-- VIEW 5: PROGRESS & VISUAL COURSE MASTERY GRID -->
     <section class="view" id="stats-view">
-      <h2 style="font-family: var(--font-heading);">Spaced Repetition Analytics</h2>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-family: var(--font-heading);">Course Mastery & SRS Progress Map</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Visual breakdown of your Spanish mastery across all levels, units, and skill modules.</p>
+        </div>
+        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); padding: 0.6rem 1.2rem; border-radius: 14px; display: flex; align-items: center; gap: 0.8rem;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Course Mastery:</span>
+          <strong style="font-size: 1.2rem; color: #34d399;" id="overall-mastery-pct">0%</strong>
+        </div>
+      </div>
+
+      <!-- Khan Academy-Style Color Legend Bar -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1rem 1.4rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; font-size: 0.8rem; font-weight: 600;">
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: #c084fc;">
+          <span style="width: 14px; height: 14px; border-radius: 4px; background: rgba(192, 132, 252, 0.3); border: 1.5px solid #c084fc; display: inline-block;"></span>
+          👑 Mastered
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: #60a5fa;">
+          <span style="width: 14px; height: 14px; border-radius: 4px; background: rgba(96, 165, 250, 0.3); border: 1.5px solid #60a5fa; display: inline-block;"></span>
+          🔵 Proficient
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: #fb923c;">
+          <span style="width: 14px; height: 14px; border-radius: 4px; background: rgba(251, 146, 60, 0.3); border: 1.5px solid #fb923c; display: inline-block;"></span>
+          🟧 Familiar
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: #94a3b8;">
+          <span style="width: 14px; height: 14px; border-radius: 4px; background: transparent; border: 1.5px solid #94a3b8; display: inline-block;"></span>
+          🔲 Attempted
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-muted);">
+          <span style="width: 14px; height: 14px; border-radius: 4px; background: rgba(30, 41, 59, 0.8); border: 1px solid var(--border-color); display: inline-block;"></span>
+          ⬜ Not Started
+        </div>
+      </div>
+
+      <!-- VISUAL UNIT MAP CONTAINER -->
+      <div id="unit-mastery-roadmap-container" style="display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2.5rem;">
+        <!-- Level & Unit Mastery Grids Render Dynamically Here -->
+      </div>
 
       <div class="stats-grid">
         <div class="stats-card">
-          <span class="stat-label">Universal Vocabulary</span>
+          <span class="stat-label">Total Universal Vocabulary</span>
           <span class="stats-num" id="stat-total-words">0</span>
-        </div>
-        <div class="stats-card">
-          <span class="stat-label">Regionalisms Separated</span>
-          <span class="stats-num" id="stat-regional-words" style="color: #c084fc;">99</span>
         </div>
         <div class="stats-card">
           <span class="stat-label">Words Learned</span>
@@ -421,6 +634,18 @@
       </div>
     </section>
 
+    <!-- VIEW 6: ACHIEVEMENTS & MILESTONES DASHBOARD -->
+    <section class="view" id="achievements-view">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="font-family: var(--font-heading);">Fluency Milestones & Achievements</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">Unlock shiny badges as you study flashcards, master conjugations, and practice spoken scenarios!</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;" id="achievements-grid">
+        <!-- 8 Dynamic Badge Cards render here -->
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal for Uploading Custom Language JSON Decks -->
@@ -438,12 +663,110 @@
         <i class="fa-solid fa-rotate"></i> Reset to Default Universal Spanish Deck
       </button>
     </div>
+  <!-- FIRST-TIME AUTHENTIC ONBOARDING MODAL -->
+  <div class="modal-overlay" id="onboarding-modal" style="z-index: 10000; background: rgba(10, 15, 30, 0.92); backdrop-filter: blur(12px);">
+    <div class="modal" style="max-width: 620px; border: 1px solid var(--accent-primary); box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);">
+      
+      <!-- Slide 1: Welcome & Goal Pacing Selection -->
+      <div id="onboarding-slide-1" class="onboarding-slide" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        <div style="text-align: center;">
+          <span class="badge badge-diff A1-Beginner" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;">👋 WELCOME TO SYSTEMALOGOS</span>
+          <h2 style="font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin: 0;">Choose Your Learning Pace</h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.4rem;">
+            Mastering our 3,842 Universal Spanish words gives you <strong>92%+ conversational comprehension</strong>. Choose your timeline:
+          </p>
+        </div>
+
+        <!-- 3 Interactive Pacing Options -->
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div class="pacing-option-card active" data-goal="20" style="background: rgba(15, 23, 42, 0.8); border: 2px solid var(--accent-primary); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.2rem;">🟡</span>
+                <strong style="font-size: 1.05rem; color: #fff;">Accelerated Pace (20 Words / day)</strong>
+                <span class="badge badge-diff A1-Beginner" style="font-size: 0.7rem;">RECOMMENDED</span>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-secondary); margin: 0.3rem 0 0 0;">
+                <strong>Fluent Vocabulary in 6 Months</strong> • ~15 mins/day • Best balance of speed & memory
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--accent-primary);"></i>
+          </div>
+
+          <div class="pacing-option-card" data-goal="10" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.2rem;">🟢</span>
+                <strong style="font-size: 1.05rem; color: #fff;">Casual Pace (10 Words / day)</strong>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
+                <strong>Fluent Vocabulary in 1 Year</strong> • ~8 mins/day • Great for busy schedules
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
+          </div>
+
+          <div class="pacing-option-card" data-goal="30" style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); padding: 1rem 1.2rem; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="font-size: 1.2rem;">🔴</span>
+                <strong style="font-size: 1.05rem; color: #fff;">Intensive Pace (30 Words / day)</strong>
+              </div>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
+                <strong>Fluent Vocabulary in 4 Months</strong> • ~25 mins/day • Rapid immersion pace
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--text-muted); opacity: 0.3;"></i>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="onboarding-next-1" style="font-size: 1rem; padding: 0.9rem; margin-top: 0.5rem;">
+          Continue to Method Guidance <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Slide 2: Real-World Practice & Scenario Audio Emphasis -->
+      <div id="onboarding-slide-2" class="onboarding-slide" style="display: none; flex-direction: column; gap: 1.2rem;">
+        <div style="text-align: center;">
+          <span class="badge badge-diff B1-Intermediate" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;">🗣️ REAL-WORLD FLUENCY METHODOLOGY</span>
+          <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: #fff; margin: 0;">How to Maximize Your Results</h2>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 16px; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <span style="font-size: 1.6rem;">🎧</span>
+            <div>
+              <strong style="color: var(--accent-cyan); font-size: 1rem;">Use Scenario Audio Drills</strong>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                Listen to native audio lines in <strong>Scenario Drills</strong> to build natural listening comprehension and spoken turn-taking patterns.
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <span style="font-size: 1.6rem;">💬</span>
+            <div>
+              <strong style="color: #34d399; font-size: 1rem;">Pair Drills with Real-World Speaking</strong>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                SystemaLogos equips you with 3,840 core words and grammar tenses. For complete fluency, practice speaking your daily learned words in real conversations!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="onboarding-finish-btn" style="font-size: 1rem; padding: 0.9rem; background: linear-gradient(135deg, var(--srs-easy), #059669);">
+          🚀 Let's Start Learning!
+        </button>
+      </div>
+
+    </div>
   </div>
 
-  <script src="deck_data.js"></script>
-  <script src="scenarios_data.js"></script>
-  <script src="conjugation_data.js"></script>
-  <script src="srs.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="deck_data.js?v=17"></script>
+  <script src="scenarios_data.js?v=17"></script>
+  <script src="conjugation_data.js?v=17"></script>
+  <script src="srs.js?v=17"></script>
+  <script type="module" src="js/main.js?v=17"></script>
 </body>
 </html>
