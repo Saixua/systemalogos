@@ -12,9 +12,9 @@
  */
 
 (function(window) {
-  let allVerbs = window.CONJUGATION_DATA || [];
+  let allVerbs = window.CONJUGATION_VERBS || [];
   let currentVerbIdx = 0;
-  let currentTense = 'present';
+  let currentTense = 'presente';
 
   function initConjugations() {
     const activeLang = localStorage.getItem('systemalogos_active_language') || 'spanish';
@@ -59,7 +59,7 @@
     if (verbSelect) verbSelect.style.display = 'inline-block';
     if (tenseSelect) tenseSelect.style.display = 'inline-block';
 
-    allVerbs = window.CONJUGATION_DATA || [];
+    allVerbs = window.CONJUGATION_VERBS || [];
     populateVerbSelect();
     renderConjugationTable();
   }
@@ -100,18 +100,28 @@
 
     if (titleEl) titleEl.textContent = verb.infinitive;
     if (englishEl) englishEl.textContent = verb.english;
-    if (typeBadge) typeBadge.textContent = verb.type || 'Regular';
+    if (typeBadge) typeBadge.textContent = verb.type || verb.category || 'Regular';
 
-    const tenses = verb.tenses || {};
-    const currentTenseData = tenses[currentTense] || tenses['present'] || {};
+    const tenses = verb.conjugations || verb.tenses || {};
+    
+    // Fuzzy match tense key to bypass encoding issues (e.g. pretAcrito vs pretrito)
+    let matchedTenseKey = Object.keys(tenses).find(k => k.toLowerCase().includes(currentTense.toLowerCase().replace(/[^a-z]/g, '').substring(0, 5))) || 'presente';
+    const currentTenseData = tenses[matchedTenseKey] || tenses['presente'] || {};
 
     if (tableContainer) {
-      tableContainer.innerHTML = Object.entries(currentTenseData).map(([pronoun, conjugatedForm]) => `
+      tableContainer.innerHTML = Object.entries(currentTenseData).map(([pronoun, conjugatedForm]) => {
+        let esWord = typeof conjugatedForm === 'string' ? conjugatedForm : conjugatedForm.es;
+        let enWord = typeof conjugatedForm === 'string' ? '' : conjugatedForm.en;
+        
+        return `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; background: rgba(15, 23, 42, 0.4); border-radius: 8px; font-size: 0.9rem;">
-          <span style="color: var(--text-muted); font-weight: 600;">${pronoun}</span>
-          <strong style="color: var(--accent-primary); font-size: 1.05rem;">${conjugatedForm}</strong>
+          <span style="color: var(--text-muted); font-weight: 600; width: 30%;">${pronoun}</span>
+          <div style="text-align: right; width: 70%;">
+            <strong style="color: var(--accent-primary); font-size: 1.05rem; display: block;">${esWord}</strong>
+            <span style="color: var(--text-secondary); font-size: 0.8rem; font-style: italic;">${enWord}</span>
+          </div>
         </div>
-      `).join('');
+      `}).join('');
     }
   }
 

@@ -59,6 +59,9 @@
 
     unflipFlashcard();
 
+    const srsPassBtn = document.getElementById('srs-pass-btn');
+    const srsFailBtn = document.getElementById('srs-fail-btn');
+
     if (fcQueue.length === 0 || fcIndex >= fcQueue.length) {
       if (fcFrontText) fcFrontText.textContent = "🎉 Session Completed!";
       if (fcFrontHint) fcFrontHint.textContent = "Great job! All cards in this session have been reviewed.";
@@ -66,7 +69,26 @@
       if (fcBackSpanishRef) fcBackSpanishRef.textContent = "Check back later for spaced reviews.";
       if (fcDueCount) fcDueCount.textContent = "0";
       if (fcProgressFill) fcProgressFill.style.width = "100%";
+      if (srsPassBtn) {
+        srsPassBtn.innerHTML = `Return to Roadmap <i class="fa-solid fa-arrow-right"></i>`;
+        srsPassBtn.onclick = () => {
+          if (window.MainModule) window.MainModule.switchView('home-view');
+        };
+      }
+      if (srsFailBtn) {
+        srsFailBtn.style.opacity = '0.5';
+        srsFailBtn.style.pointerEvents = 'none';
+      }
       return;
+    }
+
+    if (srsPassBtn) {
+      srsPassBtn.innerHTML = `Got It! <i class="fa-solid fa-arrow-right"></i>`;
+      srsPassBtn.onclick = null;
+    }
+    if (srsFailBtn) {
+      srsFailBtn.style.opacity = '1';
+      srsFailBtn.style.pointerEvents = 'auto';
     }
 
     const currentCard = fcQueue[fcIndex];

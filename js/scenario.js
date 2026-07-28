@@ -58,8 +58,21 @@
     select.onchange = (e) => {
       currentScenarioIdx = parseInt(e.target.value, 10);
       currentScenarioStepIdx = 0;
+      window.currentScenarioNodeId = null; // Clear if manually selected
       renderCurrentScenarioStep();
     };
+  }
+
+  function startScenario(scenarioId, roadmapNodeId) {
+    if (!allScenarios || allScenarios.length === 0) return;
+    const idx = allScenarios.findIndex(s => s.id === scenarioId || (s.title && s.title.includes(scenarioId)));
+    if (idx !== -1) {
+      currentScenarioIdx = idx;
+    }
+    currentScenarioStepIdx = 0;
+    window.currentScenarioNodeId = roadmapNodeId;
+    populateScenarioSelect();
+    renderCurrentScenarioStep();
   }
 
   function renderCurrentScenarioStep() {
@@ -213,11 +226,19 @@
             if (window.AchievementsModule) {
               window.AchievementsModule.updateAchievementProgress('scenario_pro', 1);
             }
+            if (window.currentScenarioNodeId) {
+              localStorage.setItem(`scenario_completed_${window.currentScenarioNodeId}`, 'true');
+              if (window.RoadmapModule) window.RoadmapModule.renderTree();
+            }
             alert(`🎉 Scenario Completed: You mastered '${currentScenario.title}'!`);
             currentScenarioIdx = (currentScenarioIdx + 1) % allScenarios.length;
             currentScenarioStepIdx = 0;
             populateScenarioSelect();
-            renderCurrentScenarioStep();
+            if (window.MainModule) {
+              window.MainModule.switchView('home-view');
+            } else {
+              renderCurrentScenarioStep();
+            }
           }
         }, 1500);
       } else {
@@ -237,7 +258,8 @@
     populateScenarioSelect,
     renderCurrentScenarioStep,
     submitScenarioResponse,
-    showFourChoices
+    showFourChoices,
+    startScenario
   };
 })(window);
 

@@ -14,8 +14,9 @@
   const STREAK_KEY = 'systemalogos_streak_data_v1';
   const ACHIEVEMENTS_KEY = 'systemalogos_achievements_v1';
 
-  let streakCount = 1;
+  let streakCount = 0;
   let todayStudiedCount = 0;
+  let goalReachedToday = false;
   let DAILY_GOAL_TARGET = parseInt(localStorage.getItem('systemalogos_daily_goal_target'), 10) || 20;
 
   const achievements = {
@@ -70,8 +71,8 @@
   };
 
   function setDailyGoalTarget(goal) {
-    DAILY_GOAL_TARGET = goal;
-    localStorage.setItem('systemalogos_daily_goal_target', goal);
+    DAILY_GOAL_TARGET = parseInt(goal, 10) || 20;
+    localStorage.setItem('systemalogos_daily_goal_target', DAILY_GOAL_TARGET);
   }
 
   function loadStreakData(onUpdateUI) {
@@ -81,17 +82,25 @@
       if (dataStr) {
         const data = JSON.parse(dataStr);
         if (data.lastDate === today) {
-          streakCount = data.streak || 1;
+          streakCount = data.streak || 0;
           todayStudiedCount = data.todayCount || 0;
+          goalReachedToday = data.goalReached || false;
         } else {
           const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-          if (data.lastDate === yesterday) {
-            streakCount = data.streak || 1;
+          // Only keep the streak if they actually completed yesterday's daily goal target
+          const pastTarget = parseInt(localStorage.getItem('systemalogos_daily_goal_target'), 10) || 20;
+          if (data.lastDate === yesterday && (data.todayCount || 0) >= pastTarget) {
+            streakCount = data.streak || 0;
           } else {
-            streakCount = 1;
+            streakCount = 0;
           }
           todayStudiedCount = 0;
+          goalReachedToday = false;
         }
+      } else {
+        streakCount = 0;
+        todayStudiedCount = 0;
+        goalReachedToday = false;
       }
       if (onUpdateUI) onUpdateUI();
     } catch (e) {
@@ -104,17 +113,23 @@
     updateAchievementProgress('flashcard_scholar', 1);
 
     const today = new Date().toISOString().slice(0, 10);
+    
+    // Check if they completed today's daily goal just now
+    if (todayStudiedCount >= DAILY_GOAL_TARGET && !goalReachedToday) {
+      streakCount++;
+      goalReachedToday = true;
+      updateAchievementProgress('streak_warrior', 1);
+      if (onTriggerConfetti) onTriggerConfetti();
+    }
+
     try {
       localStorage.setItem(STREAK_KEY, JSON.stringify({
         lastDate: today,
         streak: streakCount,
-        todayCount: todayStudiedCount
+        todayCount: todayStudiedCount,
+        goalReached: goalReachedToday
       }));
     } catch (e) {}
-
-    if (todayStudiedCount === DAILY_GOAL_TARGET && onTriggerConfetti) {
-      onTriggerConfetti();
-    }
 
     if (onUpdateUI) onUpdateUI();
   }

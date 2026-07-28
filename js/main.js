@@ -22,7 +22,7 @@
       window.AchievementsModule.loadAchievementsState();
       window.AchievementsModule.renderAchievementsGrid();
       window.AchievementsModule.loadStreakData(() => {
-        if (window.RoadmapModule) window.RoadmapModule.checkLevelGating(allCards);
+        updateStreakUI();
       });
     }
 
@@ -43,7 +43,7 @@
       loadDeck(window.DEFAULT_DECK_DATA);
     }
 
-    if (window.RoadmapModule) window.RoadmapModule.checkLevelGating(allCards);
+    if (window.RoadmapModule) window.RoadmapModule.renderTree();
     switchView(activeView);
   }
 
@@ -64,7 +64,7 @@
 
     populateFilterDropdowns(deckData.categories || []);
     filterAndLoadQueue();
-    if (window.RoadmapModule) window.RoadmapModule.checkLevelGating(allCards);
+    if (window.RoadmapModule) window.RoadmapModule.renderTree();
   }
 
   function populateFilterDropdowns(categories) {
@@ -143,12 +143,61 @@
   });
 
   function setupEventListeners() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navbarMenu = document.getElementById('navbar-menu');
+    
+    if (mobileMenuBtn && navbarMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navbarMenu.classList.toggle('open');
+      });
+    }
+
     const navBtns = document.querySelectorAll('.nav-btn');
     navBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         switchView(btn.dataset.view);
+        if (navbarMenu && navbarMenu.classList.contains('open')) {
+          navbarMenu.classList.remove('open');
+        }
       });
     });
+
+    // Custom Flag Select Logic
+    const flagSelectTrigger = document.getElementById('flag-select-trigger');
+    const flagSelectOptions = document.getElementById('flag-select-options');
+    const currentFlagIcon = document.getElementById('current-flag-icon');
+    const currentFlagText = document.getElementById('current-flag-text');
+
+    if (flagSelectTrigger && flagSelectOptions) {
+      flagSelectTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        flagSelectOptions.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#custom-flag-select')) {
+          flagSelectOptions.classList.remove('open');
+        }
+      });
+
+      const flagOptions = document.querySelectorAll('.flag-option');
+      flagOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          const val = opt.dataset.value;
+          const flagUrl = opt.dataset.flag;
+          const abbr = opt.dataset.abbr;
+          
+          if (currentFlagIcon) currentFlagIcon.src = flagUrl;
+          if (currentFlagText) currentFlagText.textContent = abbr;
+          
+          flagSelectOptions.classList.remove('open');
+          
+          if(window.DeckLoaderModule) {
+            window.DeckLoaderModule.loadLanguageCourse(val);
+          }
+        });
+      });
+    }
 
     const catSelect = document.getElementById('category-filter-select');
     if (catSelect) {
@@ -309,8 +358,26 @@
   }
 
   function updateStreakUI() {
-    if (window.RoadmapModule) window.RoadmapModule.checkLevelGating(allCards);
-    if (window.AchievementsModule) window.AchievementsModule.renderAchievementsGrid();
+    if (window.RoadmapModule) window.RoadmapModule.renderTree();
+    if (window.AchievementsModule) {
+      window.AchievementsModule.renderAchievementsGrid();
+      
+      // Update header streak counter
+      const valEl = document.getElementById('streak-count-val');
+      if (valEl) {
+        valEl.textContent = window.AchievementsModule.streakCount;
+      }
+      
+      // Update home page daily goal progress bar
+      const studied = window.AchievementsModule.todayStudiedCount;
+      const target = window.AchievementsModule.DAILY_GOAL_TARGET;
+      const pct = Math.min(100, Math.round((studied / (target || 1)) * 100));
+      
+      const pctEl = document.getElementById('home-goal-pct');
+      const barEl = document.getElementById('home-goal-bar');
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (barEl) barEl.style.width = `${pct}%`;
+    }
   }
 
   function refreshCurrentView() {
@@ -324,6 +391,7 @@
     switchView,
     refreshCurrentView,
     loadDeck,
-    filterAndLoadQueue
+    filterAndLoadQueue,
+    getAllCards: () => allCards
   };
 })(window);

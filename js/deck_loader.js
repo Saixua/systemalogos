@@ -95,13 +95,8 @@
 
       if (typeof onComplete === 'function') onComplete(deckData);
     } catch (e) {
-      console.warn(`Could not load deck file ${config.deckFile}, trying fallback DECK_DATA:`, e);
-      if (window.DECK_DATA && window.MainModule) {
-        window.MainModule.loadDeck(window.DECK_DATA);
-        window.dispatchEvent(new CustomEvent('languageChanged', {
-          detail: { langKey, config, deckData: window.DECK_DATA }
-        }));
-      }
+      console.error(`Could not load deck file ${config.deckFile}:`, e);
+      alert("Failed to load language deck. Please check server.");
     }
   }
 
